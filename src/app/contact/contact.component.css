@@ -1,0 +1,42 @@
+.nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: #24243e;
+  color: #fff;
+  display: flex;
+  padding: 0 16px;
+  align-items: center;
+  height: 56px;
+  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+}
+
+.restaurant-name {
+  margin-right: auto;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.nav-link {
+
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+}
+.Underline
+{
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+.wrapper-box{
+  margin-top: 5%;
+  overflow-x: hidden;
+text-align:center;
+}
