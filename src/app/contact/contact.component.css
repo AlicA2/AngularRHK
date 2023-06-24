@@ -34,3 +34,9 @@
   text-decoration: none;
   text-decoration: underline;
 }
+
+.wrapper-box{
+  margin-top: 5%;
+  overflow-x: hidden;
+text-align:center;
+}

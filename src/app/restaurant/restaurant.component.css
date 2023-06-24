@@ -1,7 +1,8 @@
 .nav {
   position: fixed;
   top: 0;
-  z-index: 2; /* Ensure the nav bar appears above the image */
+  left: 0;
+  z-index: 2;
   width: 100%;
   background-color: #24243e;
   color: #fff;
@@ -14,17 +15,32 @@
 }
 
 .nav-link {
-  float: right;
-  margin: 5%;
+
+  margin-right: 40px;
   color: white;
   text-decoration: none;
-}
 
+}
+.Underline
+{
+  margin-right: 40px;
+  color: white;
+  text-decoration: none;
+  text-decoration: underline;
+}
 .container {
   margin-top: 56px;
-  margin-left: 0%;
-  margin-right: 00%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .background-image {
   position: fixed;
@@ -38,16 +54,14 @@
 }
 
 .text-overlay {
-  position: absolute;
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   text-align: center;
   color: white;
   font-weight: bolder;
   z-index: 1;
   font-family: "Bookman Old Style";
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
 }
 
 .text-overlay h1 {

@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
     UserLoginComponent,
     NavBarComponent,
     RestaurantComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
