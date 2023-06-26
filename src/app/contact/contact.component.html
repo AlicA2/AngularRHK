@@ -10,52 +10,49 @@
 
 
 <img src="../assets/Images/Slika1.jpg" alt="Image" class="outside-image">
+
+
 <div class="wrapper-box">
   <div class="container">
     <h2 class="text-center mb-5">Kontaktirajte nas</h2>
     <div class="row">
       <div class="col-md-6 offset-md-3">
-
+        <form (ngSubmit)="onSubmit(contactForm.value)" #contactForm="ngForm">
           <div class="form-group">
-            <label >Email</label>
+            <label>Email</label>
             <input
               type="email"
               class="form-control"
               name="Email"
               aria-describedby="emailHelp"
               placeholder="Unesite email"
-              formControlName="Email"
+              [(ngModel)]="contactForm.value.Email"
+              required
             />
-            <small id="emailHelp" class="form-text text-muted"
-            >Mi nećemo dijeliti Vaš Email.</small
-            >
+            <small id="emailHelp" class="form-text text-muted">Mi nećemo dijeliti Vaš Email.</small>
           </div>
           <div class="form-group">
-            <label >Ime</label>
+            <label>Ime</label>
             <input
               type="text"
               class="form-control"
-              name="Ime"
-              placeholder="Ime"
-              formControlName="Ime"
+              name="Name"
+              placeholder="Name"
+              [(ngModel)]="contactForm.value.Name"
+              required
             />
           </div>
-
           <div class="form-group">
             <label>Vaš sadržaj</label>
             <textarea
               class="form-control"
-              formControlName="Unesite vaš sadraj"
-              name="Koment"
-            >
-            </textarea>
+              name="Sadrzaj"
+              [(ngModel)]="contactForm.value.Sadrzaj"
+              required
+            ></textarea>
           </div>
-          <button
-            type="submit"
-            class="btn btn-primary"
-          >
-            Pošalji
-          </button>
+          <button type="submit" class="btn btn-primary">Pošalji</button>
+        </form>
       </div>
     </div>
   </div>
