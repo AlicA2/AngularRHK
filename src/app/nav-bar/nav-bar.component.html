@@ -28,22 +28,38 @@
 
       <div class="reservation-form">
         <h2>Rezervacija</h2>
-        <form (submit)="onSubmit()">
+        <form (ngSubmit)="onSubmit(reservationForm.value)" #reservationForm="ngForm">
           <div class="form-group">
-            <label for="customerName">Ime i prezime</label>
-            <input type="text" id="customerName" required>
+            <label>Ime i prezime</label>
+            <input type="text"
+                   class="form-control"
+                   name="fullName"
+                   [(ngModel)]="reservationForm.value.fullName"
+                   required>
           </div>
           <div class="form-group">
-            <label for="phoneNumber">Broj telefona</label>
-            <input type="tel" id="phoneNumber" required>
+            <label>Broj telefona</label>
+            <input type="tel"
+                   class="form-control"
+                   name="phoneNumber"
+                   [(ngModel)]="reservationForm.value.phoneNumber"
+                   required>
           </div>
           <div class="form-group">
-            <label for="guests">Broj mjesta</label>
-            <input type="number" id="guests" required>
+            <label>Broj gostiju</label>
+            <input type="number"
+                   class="form-control"
+                   name="numberOfGuests"
+                   [(ngModel)]="reservationForm.value.numberOfGuests"
+                   required>
           </div>
           <div class="form-group">
-            <label for="message">Poruka</label>
-            <textarea id="message" required></textarea>
+            <label>Datum i vrijeme</label>
+            <input type="datetime-local"
+                   class="form-control"
+                   name="dateTime"
+                   [(ngModel)]="reservationForm.value.dateTime"
+                   required>
           </div>
           <button type="submit" class="btn-reserve">Rezerviši</button>
         </form>
@@ -51,6 +67,3 @@
     </div>
   </div>
 </div>
-
-
-
