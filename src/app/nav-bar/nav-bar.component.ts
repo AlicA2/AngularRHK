@@ -1,19 +1,11 @@
-import { Component } from '@angular/core';
-import {Router} from "@angular/router";
-
-@Component({
-  selector: 'app-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
-})
-export class NavBarComponent {
+  import { Component} from '@angular/core';
 
 
-  constructor(private router: Router) {
-}
+  @Component({
+    selector: 'app-nav-bar',
+    templateUrl: './nav-bar.component.html',
+    styleUrls: ['./nav-bar.component.css']
+  })
+  export class NavBarComponent {
 
-navigateToNav()
-{
-  this.router.navigate(['NavBar']);
-}
-}
+  }

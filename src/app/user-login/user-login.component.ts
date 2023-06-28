@@ -26,15 +26,6 @@ export class UserLoginComponent implements OnInit{
       this.signupUsers=JSON.parse(localData);
     }
   }
-  onClickLogin() {
-    this.onLogin();
-    this.navigateNavBarPage();
-  }
-  navigateNavBarPage()
-  {
-
-  }
-
 
   onSignUp(){
     console.log(this.signupObj)
@@ -66,7 +57,22 @@ export class UserLoginComponent implements OnInit{
           alert(err?.error.message)
     }
       })
-
+  }
+  onLoginAdmin(){
+    this.auth.logins(this.loginObj)
+      .subscribe({
+        next:(res)=>{
+          this.router.navigate(['/main'])
+        },
+        error: (err)=>{
+          alert(err?.error.message)
+        }
+      })
+  }
+  onLoginAll()
+  {
+    this.onLogin();
+    this.onLoginAdmin();
   }
 }
 
