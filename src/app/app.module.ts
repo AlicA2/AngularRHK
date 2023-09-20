@@ -1,36 +1,51 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import {RouterModule, Routes} from "@angular/router";
+import { BrowserModule } from '@angular/platform-browser';
+import  {RouterModule, RouterOutlet} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+
 import { AppComponent } from './app.component';
-import { UserLoginComponent } from './user-login/user-login.component';
-import { AuthService } from './services/auth.service';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { AppRoutingModule } from './app-routing.module';
-import { RestaurantComponent } from './restaurant/restaurant.component';
-import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
+
+import { RegistracijaAdminComponent } from './registracija-admin/registracija-admin.component';
+import { RegistracijaKorisnikComponent } from './registracija-korisnik/registracija-korisnik.component';
+import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.component';
+import { PostavkaAdminComponent } from './postavke-profila/postavka-admin/postavka-admin.component';
+import { PostavkaKorisnikComponent } from './postavke-profila/postavka-korisnik/postavka-korisnik.component';
+import { KorisniciComponent } from './korisnici/korisnici.component';
+
+import { PocetnaComponent } from './pocetna/pocetna.component';
+import { AdminComponent } from './pocetna/admin/admin.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent,
-    NavBarComponent,
-    RestaurantComponent,
-    ContactComponent,
+    LoginComponent,
+    RegistracijaAdminComponent,
+    RegistracijaKorisnikComponent,
+    PostavkeProfilaComponent,
+    PostavkaAdminComponent,
+    PostavkaKorisnikComponent,
+    KorisniciComponent,
+    PocetnaComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule,
+    FormsModule,
+    RouterModule.forRoot([
+      {path: 'login', component: LoginComponent},
+      {path: 'registracija-admin', component: RegistracijaAdminComponent},
+      {path: 'registracija-korisnik', component: RegistracijaKorisnikComponent},
+      {path: 'postavke-profila', component: PostavkeProfilaComponent},
+      {path: 'korisnici', component: KorisniciComponent},
+      {path:"pocetna", component:PocetnaComponent},
 
+    ])
   ],
-  providers: [
-    AuthService
-  ],
-  bootstrap: [AppComponent],
-
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
