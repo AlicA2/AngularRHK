@@ -21,7 +21,7 @@ export class PostavkaAdminComponent implements OnInit {
 
     this.ucitajGradove();
     console.log(this.loginInfo().autentifikacijaToken.korisnickiNalog.ID)
-    if (this.loginInfo().isPremisijaAdmin){
+    if (this.loginInfo().isPermisijaAdmin){
       this.ucitajAdmin();
 
     }

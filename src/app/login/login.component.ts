@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   txtKorisnickiIme:any;
   txtLozinka:any;
   korisnik_id:any;
+  //Add
   constructor(private httpKlijent:HttpClient,private  router:Router) { }
 
   ngOnInit(): void {
@@ -31,9 +32,9 @@ export class LoginComponent implements OnInit {
     this.httpKlijent.post<LoginInformacije>(MojConfig.adresa_servera+ "/Autentifikacija/Login", saljemo).subscribe(
       (x:LoginInformacije)=>{
         if(x.isLogiran){
-          porukaSuccess("login upjesan");
+          porukaSuccess("Login uspjesan");
           AutentifikacijaHelper.setLoginInfo(x);
-          if(x.isPremisijaKorisnik)
+          if(x.isPermisijaKorisnik)
           {
             this.korisnik_id = x.autentifikacijaToken.korisnickiNalogId;
           }
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
         }
         else{
           AutentifikacijaHelper.setLoginInfo(null);
-          porukaError("nesuspjesan login");
+          porukaError("Neuspjesan login");
         }
       }
     )

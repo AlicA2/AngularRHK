@@ -72,7 +72,7 @@ export class RegistracijaKorisnikComponent implements OnInit {
 
 
     } else {
-      alert("niste unijeli sve podatke");
+      alert("Niste unijeli sve podatke");
     }
 
 

@@ -21,7 +21,7 @@ export class PostavkaKorisnikComponent implements OnInit {
 
     this.ucitajGradove();
     console.log(this.loginInfo().autentifikacijaToken.korisnickiNalog.ID)
-    if (this.loginInfo().isPremisijaKorisnik){
+    if (this.loginInfo().isPermisijaKorisnik){
       this.ucitajKorisnika();
       console.log(this.korisnik)
     }

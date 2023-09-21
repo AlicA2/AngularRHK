@@ -14,7 +14,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angularFitVision';
   constructor(private httpKlijent:HttpClient, private router:Router) {
   }
 
