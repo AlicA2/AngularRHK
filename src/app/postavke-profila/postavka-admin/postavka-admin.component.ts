@@ -73,7 +73,7 @@ export class PostavkaAdminComponent implements OnInit {
       porukaSuccess("Upjesna promjena podataka");
     })
 
-      this.router.navigateByUrl("/oprema");
+      this.router.navigateByUrl("/pocetna");
     }
     else{
       alert("polja ne smiju biti prazna");
