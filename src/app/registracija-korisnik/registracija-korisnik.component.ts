@@ -23,16 +23,10 @@ export class RegistracijaKorisnikComponent implements OnInit {
 
   ime: string = "";
   prezime: string = "";
-  datum_rodjenja: Date;
-  datum_polaska: Date;
   telefon: string = "";
-  adresa: string = "";
   email: string = "";
   spol: string = "";
-  jmbg: string = "";
   grad_ID: number = 0;
-  visina: string = "";
-  tezina: string = "";
   korisnickoIme: string = "";
   lozinka: any = "";
 
@@ -45,28 +39,21 @@ export class RegistracijaKorisnikComponent implements OnInit {
 
   registrcaija() {
 
-    if (this.ime != "" && this.prezime != "" && this.datum_rodjenja != null && this.datum_polaska != null
-      && this.telefon != "" && this.email != "" && this.adresa != "" && this.korisnickoIme != "" && this.lozinka != "" &&
-      this.visina != "" && this.tezina != "" && this.jmbg != "" && this.spol != "" && this.spol != "...." && this.grad_ID != 0) {
+    if (this.ime != "" && this.prezime != "" && this.telefon != "" && this.email != "" && this.korisnickoIme != "" && this.lozinka != "" &&
+       this.spol != "" && this.spol != "...." && this.grad_ID != 0) {
       var korisnik = {
         id: 0,
         ime: this.ime,
         prezime: this.prezime,
-        datum_rodjenja: this.datum_rodjenja,
-        datum_polaska: this.datum_polaska,
         telefon: this.telefon,
-        adresa: this.adresa,
         email: this.email,
         spol: this.spol,
-        jmbg: this.jmbg,
         grad_ID: this.grad_ID,
-        visina: this.visina,
-        tezina: this.tezina,
         korisnickoIme: this.korisnickoIme,
         lozinka: this.lozinka
       }
       this.httpKlijent.post(MojConfig.adresa_servera + "/Korisnik/Snimi", korisnik).subscribe(x => {
-        porukaSuccess("Ospjesna regstracija");
+        porukaSuccess("Uspjesna registracija");
       })
       this.router.navigateByUrl("/login");
 
