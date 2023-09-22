@@ -1,0 +1,100 @@
+/* Stil za naslov galerije */
+.gallery-title {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 30px;
+}
+/* Ovaj stil se primjenjuje na galeriju slika */
+.gallery {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* Ovaj stil se primjenjuje na pojedinačne slike */
+.image-container {
+  margin: 10px;
+  cursor: pointer;
+  width: calc(33.33% - 20px);
+  box-sizing: border-box;
+  position: relative;
+}
+.image-caption {
+  position: absolute;
+  bottom:0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px;
+  text-align: center;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.image-container:hover .image-caption {
+  opacity: 1;
+}
+/* Ovaj stil se primjenjuje na slike unutar galerije */
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+/* Ovaj stil se primjenjuje na modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 999; /* Postavite z-index kako bi modal bio iznad ostalog sadržaja */
+}
+
+/* Ovaj stil se primenjuje na prikazan modal */
+.modal.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+/* Ovaj stil se primenjuje na sadržaj modala */
+.modal-content {
+  background-color: #fff;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  width: 600px;
+  height: 390px;
+}
+
+/* Ovaj stil se primenjuje na zatvaranje modala */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  font-size:30px;
+  color: black;
+}
+
+/* Ovaj stil se primenjuje na sliku unutar modala */
+.modal-content img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/* Ovaj stil se primenjuje na figcaption unutar modala */
+.modal-content figure figcaption {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Ovaj stil se primenjuje na mfp-bottom-bar, mfp-title i mfp-counter prema vašim potrebama */

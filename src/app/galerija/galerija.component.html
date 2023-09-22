@@ -1,0 +1,23 @@
+<!-- galerija.component.html -->
+<h1 class="gallery-title">Dobrodošli u našu galeriju. Nadamo se da ćete uživati u pogledu koji Vam nudimo.</h1>
+<div class="gallery">
+  <div class="image-container" *ngFor="let image of images">
+    <img [src]="image" (click)="openImage(image)" alt="Slika">
+    <div class="image-caption">Restoran Husin Konak</div>
+  </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeImage()">&times;</span>
+    <figure>
+      <img [src]="selectedImage" alt="Slika" class="mfp-img">
+      <figcaption>
+        <div class="mfp-bottom-bar">
+          <div class="mfp-title"></div>
+          <div class="mfp-counter"></div>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</div>

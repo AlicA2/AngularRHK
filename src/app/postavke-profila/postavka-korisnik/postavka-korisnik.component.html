@@ -11,11 +11,7 @@
         <input type="text" name="Prezime" class="form-control" id="prezime"
                [(ngModel)]="korisnik.prezime"  >
       </div>
-      <div class="mb-3">
-        <label for="datum" class="form-label">Datum rodjenja</label>
-        <input type="date" name="Datum" class="form-control" id="datum"
-               [(ngModel)]="korisnik.datum_rodjenja">
-      </div>
+
       <div class="mb-3">
         <label for="telefon" class="form-label">Telefon</label>
         <input type="text" name="Telefon" class="form-control" id="telefon"
@@ -26,16 +22,7 @@
         <input type="email" name="Email" class="form-control" id="email"
                [(ngModel)]="korisnik.email" >
       </div>
-      <div class="mb-3">
-        <label for="adresa" class="form-label">Adresa</label>
-        <input type="text" name="Adresa" class="form-control" id="adresa"
-               [(ngModel)]="korisnik.adresa">
-      </div>
-      <div class="mb-3">
-        <label for="jmbg" class="form-label">JMBG</label>
-        <input type="text" name="JMBG" class="form-control" id="jmbg"
-               [(ngModel)]="korisnik.jmbg" >
-      </div>
+
       <div class="mb-3">
         <label for="email" class="form-label" >Spol</label>
         <select class="form-control" [(ngModel)]="korisnik.spol" name="spol">
@@ -49,18 +36,6 @@
         <select class="form-control" [(ngModel)]="korisnik.grad_ID" name="grad">
           <option *ngFor="let g of gradovi" [value]="g.id">{{g.naziv}}</option>
         </select>
-      </div>
-      <div class="mb-3">
-        <label for="visina" class="form-label">Visina</label>
-        <input type="text" name="Visina" class="form-control" id="visina" [(ngModel)]="korisnik.visina" >
-      </div>
-      <div class="mb-3">
-        <label for="tezina" class="form-label">Tezina</label>
-        <input type="text" name="Tezina" class="form-control" id="tezina"  [(ngModel)]="korisnik.tezina">
-      </div>
-      <div class="mb-3">
-        <label for="polazak" class="form-label">Datum polaska</label>
-        <input type="date" name="Polazak" class="form-control" id="polazak"   [(ngModel)]="korisnik.datum_polaska">
       </div>
       <div class="mb-3">
         <label for="korsnickoIme" class="form-label">Korisnicko Ime</label>

@@ -13,7 +13,7 @@ import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.co
 import { PostavkaAdminComponent } from './postavke-profila/postavka-admin/postavka-admin.component';
 import { PostavkaKorisnikComponent } from './postavke-profila/postavka-korisnik/postavka-korisnik.component';
 import { KorisniciComponent } from './korisnici/korisnici.component';
-
+import {GalerijaComponent} from './galerija/galerija.component';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { AdminComponent } from './pocetna/admin/admin.component';
 
@@ -30,6 +30,7 @@ import { AdminComponent } from './pocetna/admin/admin.component';
     KorisniciComponent,
     PocetnaComponent,
     AdminComponent,
+    GalerijaComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,7 @@ import { AdminComponent } from './pocetna/admin/admin.component';
       {path: 'postavke-profila', component: PostavkeProfilaComponent},
       {path: 'korisnici', component: KorisniciComponent},
       {path:"pocetna", component:PocetnaComponent},
-
+      {path:"galerija", component:GalerijaComponent}
     ])
   ],
   providers: [],

@@ -32,15 +32,10 @@ export class PostavkaKorisnikComponent implements OnInit {
   id:0,
   ime:"",
   prezime:"",
-  datum_rodjenja:Date,datum_polaska:Date,
   telefon:"",
-  adresa:"",
   email:"",
-  spol:",",
-  jmbg:"",
+    spol:"",
   grad_ID:0,
-  visina:"",
-    tezina:"",
     korisnickoIme:"",
     lozinka:""
 }
@@ -66,14 +61,13 @@ export class PostavkaKorisnikComponent implements OnInit {
   }
 
   izmjena() {
-    if (this.korisnik.ime != "" && this.korisnik.prezime != "" && this.korisnik.datum_rodjenja != null && this.korisnik.datum_polaska != null
-      && this.korisnik.telefon != "" && this.korisnik.email != "" && this.korisnik.adresa != "" && this.korisnik.korisnickoIme != "" && this.korisnik.lozinka != null &&
-      this.korisnik.visina != "" && this.korisnik.tezina != "" && this.korisnik.jmbg != "" && this.korisnik.spol != "" && this.korisnik.spol != "...." && this.korisnik.grad_ID != 0){
+    if (this.korisnik.ime != "" && this.korisnik.prezime != "" && this.korisnik.telefon != "" && this.korisnik.email != "" && this.korisnik.korisnickoIme != "" && this.korisnik.lozinka != null &&
+      this.korisnik.spol != "" && this.korisnik.spol != "...." && this.korisnik.grad_ID != 0){
       this.httpKlijent.post(MojConfig.adresa_servera + "/Korisnik/Snimi", this.korisnik).subscribe(x=>{
         porukaSuccess("Upjesna promjena podataka");
       });
 
-      this.router.navigateByUrl("/oprema");
+      //this.router.navigateByUrl("/oprema");
     }
     else {
       alert("polja ne smiju biti prazna");
