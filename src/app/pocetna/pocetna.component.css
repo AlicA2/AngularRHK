@@ -1,0 +1,106 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('src/assets/pozadinaHrana.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  filter: blur(3px);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+
+
+.centered-h6 {
+  text-align: center;
+  width: 100%;
+  margin-top:20px;
+  margin-bottom: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: #383848;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.text-decoration-underline {
+  width: 100%;
+  margin-bottom: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: #383848;
+}
+
+.content p {
+  margin-bottom: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: rgb(59,59,59);
+}
+
+.image {
+  width: 45%;
+  height: auto;
+  margin-left: 20px;
+  float: right;
+  border-radius: 20px;
+}
+
+.image-gallery {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
+.gallery-item {
+  text-align: center;
+}
+
+.gallery-image {
+  width: 80%;
+  height: 90%;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.gallery-description {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: rgb(59,59,59);
+  margin-bottom: 2px;
+  font-size: 20px;
+}
+.gallery-small-description{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(59,59,59);
+}
+.centered-h3 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  color: #383848;
+}
