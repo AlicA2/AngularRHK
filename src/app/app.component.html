@@ -1,6 +1,4 @@
-<ul class="nav  nav-lg  pb-2 pt-2 justify-content-center" style="background-color:rgb(59,59,59)"
->
-
+<ul class="nav  nav-lg  pb-2 pt-2" style="background-color:rgb(59,59,59)">
  <li class="nav-item" *ngIf="!loginInfo().isLogiran" >
     <a class="nav-link " routerLink="/login" routerLinkActive="active">Login</a>
   </li>
@@ -30,8 +28,15 @@
       <li><a class="dropdown-item" routerLink="/postavke-profila">Postavke profila</a></li>
       <li><a class="dropdown-item" (click)="odjava()">Odjava</a></li>
     </ul>
+
+  </div>
+  <div class="logo">
+    <a href="/">
+      <img src="assets/logo.png" alt="Caffe &amp; Restaurant Perla logo">
+    </a>
   </div>
 </ul>
+
 <div class="container">
 
   <router-outlet></router-outlet>

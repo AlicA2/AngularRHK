@@ -13,3 +13,44 @@ novi
 .dropdown-menu a{
   color:black;
 }
+/* Stilizacija navigacijskog kontejnera */
+.navbar-container {
+  position: relative; /* Postavljanje relativne pozicije */
+  background-color: rgb(59, 59, 59);
+}
+
+/* Stilizacija navigacije */
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+/* Stilizacija loga */
+.logo {
+  pointer-events: none;
+  position: absolute; /* Postavljanje apsolutne pozicije za logo */
+  top: 2px; /* Pomicanje loga prema vrhu */
+  left: 50%; /* Postavljanje loga u sredinu horizontalno */
+  transform: translateX(-50%); /* Centriranje loga horizontalno */
+}
+
+/* Stilizacija loga prema potrebama */
+.logo img {
+  width: 120px;
+  height: auto;
+  border-radius: 50px;
+  /* Dodajte ostale stilizacije za logo prema potrebama */
+}
+
+/* Dodatne stilizacije za navigaciju prema potrebama */
