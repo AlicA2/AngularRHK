@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private httpKlijent:HttpClient) {}
   ngOnInit(): void {
-    this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('https://localhost:7300/info').configureLogging(LogLevel.Information).build();
+    this.hubConnectionBuilder = new HubConnectionBuilder().withUrl('https://localhost:7273/info').configureLogging(LogLevel.Information).build();
     this.hubConnectionBuilder.start().then(() => console.log('Connection started.......!')).catch(err => console.log('Error while connect with server'));
     this.hubConnectionBuilder.on('SendToAdmin', (result: any) => {
       this.list.push(result);

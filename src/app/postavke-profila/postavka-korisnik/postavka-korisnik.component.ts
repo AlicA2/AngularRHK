@@ -18,7 +18,6 @@ export class PostavkaKorisnikComponent implements OnInit {
   constructor(private httpKlijent:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
-
     this.ucitajGradove();
     console.log(this.loginInfo().autentifikacijaToken.korisnickiNalog.ID)
     if (this.loginInfo().isPermisijaKorisnik){
