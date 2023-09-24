@@ -1,9 +1,8 @@
 <div class="background-container"></div>
 
-<!-- contact-form.component.html -->
 <div class="contact-container">
   <h2 class="contact-title">KONTAKTIRAJTE NAS</h2>
-  <h3 class="contact-subtitle">Vaše mišljenje nam znači.</h3> <!-- Dodali smo novi naslov -->
+  <h3 class="contact-subtitle">Vaše mišljenje nam znači.</h3>
   <div class="row">
     <div class="col-md-8 col-sm-6 col-xs-12 wow fadeInLeft animated" [ngClass]="{'visible': isVisible}" [ngStyle]="animationStyles">
       <h5 class="co-title">POŠALJITE NAM PORUKU</h5>
@@ -15,33 +14,28 @@
             <div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <label>Ime *</label>
-                <input name="first_name" type="text" required="">
+                <input name="first_name" type="text" required [(ngModel)]="kontaktVM.Ime">
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <label>Prezime *</label>
-                <input name="last_name" type="text" required="">
+                <input name="last_name" type="text" required [(ngModel)]="kontaktVM.Prezime">
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <label>E-mail adresa *</label>
-                <input name="email_address" type="email" required="">
+                <input name="email_address" type="text" required [(ngModel)]="kontaktVM.Email" (input)="onEmailInput($event)">
               </div>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <label>Broj telefona *</label>
-                <input name="phone_number" type="tel" required="">
+                <input name="phone_number" type="tel" pattern="[0-9]*" required [(ngModel)]="kontaktVM.Telefon">
               </div>
-              <div class="col-md-12">
-                <label>Naslov *</label>
-                <input name="subject" type="text" required="">
-              </div>
+
               <div class="col-md-12">
                 <label>Poruka *</label>
-                <textarea name="message" required=""></textarea>
+                <textarea name="message" required [(ngModel)]="kontaktVM.Poruka"></textarea>
               </div>
-              <div class="col-md-12">
-                <div class="g-recaptcha" data-sitekey="6LcK6HQeAAAAALMdVgL6O9OCcZHCZo-g_XpkH92Y"></div>
-              </div>
+
               <div class="col-md-12 text-center">
-                <button name="submit" class="btn-black send_message" type="submit">POŠALJI PORUKU</button>
+                <button name="submit" class="btn-black send_message" type="submit" (click)="submitKontaktForm()">POŠALJI PORUKU</button>
               </div>
             </div>
           </div>
