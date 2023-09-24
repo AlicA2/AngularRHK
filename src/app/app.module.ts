@@ -17,7 +17,7 @@ import { GalerijaComponent } from './galerija/galerija.component';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { AdminComponent } from './pocetna/admin/admin.component';
 import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.component';
-
+import { KontaktComponent } from "./kontakt/kontakt.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.compon
     PocetnaComponent,
     AdminComponent,
     GalerijaComponent,
-    TwoFOtkljucajComponent
+    TwoFOtkljucajComponent,
+    KontaktComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +47,8 @@ import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.compon
       {path: 'korisnici', component: KorisniciComponent},
       {path:"pocetna", component:PocetnaComponent},
       {path:"galerija", component:GalerijaComponent},
-      {path: "two-f-otkljucaj", component: TwoFOtkljucajComponent}
+      {path: "two-f-otkljucaj", component: TwoFOtkljucajComponent},
+      {path: "kontakt", component:KontaktComponent}
     ])
   ],
   providers: [],

@@ -1,0 +1,80 @@
+<div class="background-container"></div>
+
+<!-- contact-form.component.html -->
+<div class="contact-container">
+  <h2 class="contact-title">KONTAKTIRAJTE NAS</h2>
+  <h3 class="contact-subtitle">Vaše mišljenje nam znači.</h3> <!-- Dodali smo novi naslov -->
+  <div class="row">
+    <div class="col-md-8 col-sm-6 col-xs-12 wow fadeInLeft animated" [ngClass]="{'visible': isVisible}" [ngStyle]="animationStyles">
+      <h5 class="co-title">POŠALJITE NAM PORUKU</h5>
+      <p class="pohvala">Imate pohvalu, prijedlog ili zamjerku? Osjećajte se slobodno, da nam to date do znanja.</p>
+      <form id="contact-form" class="form" method="POST">
+        <div class="contact-alert-container"></div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label>Ime *</label>
+                <input name="first_name" type="text" required="">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label>Prezime *</label>
+                <input name="last_name" type="text" required="">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label>E-mail adresa *</label>
+                <input name="email_address" type="email" required="">
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <label>Broj telefona *</label>
+                <input name="phone_number" type="tel" required="">
+              </div>
+              <div class="col-md-12">
+                <label>Naslov *</label>
+                <input name="subject" type="text" required="">
+              </div>
+              <div class="col-md-12">
+                <label>Poruka *</label>
+                <textarea name="message" required=""></textarea>
+              </div>
+              <div class="col-md-12">
+                <div class="g-recaptcha" data-sitekey="6LcK6HQeAAAAALMdVgL6O9OCcZHCZo-g_XpkH92Y"></div>
+              </div>
+              <div class="col-md-12 text-center">
+                <button name="submit" class="btn-black send_message" type="submit">POŠALJI PORUKU</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInRight animated" [ngClass]="{'visible': isVisible}" [ngStyle]="animationStyles">
+      <address>
+        <span class="co-title">NAŠA ADRESA</span>
+        <p class="info">
+          Bugojno
+          <br>
+          00000 Bugojno
+          <br>
+          Bosna i Hercegovina
+        </p>
+        <p class="info">
+          <a >+387 60 000 000</a>
+          <br>
+          <a >info@husinkonak.ba</a>
+        </p>
+      </address>
+
+      <h5 class="co-title">RADNO VRIJEME</h5>
+      <ul class="time-list">
+        <li><span class="week-name">Ponedjeljak</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Utorak</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Srijeda</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Četvrtak</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Petak</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Subota</span> <span>08:00 - 23:00</span></li>
+        <li><span class="week-name">Nedjelja</span> <span>08:00 - 23:00</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
