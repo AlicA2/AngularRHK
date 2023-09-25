@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {LoginInformacije} from "../_helpers/login-informacije";
 import {AutentifikacijaHelper} from "../_helpers/autentifikacija-helper";
 import {MojConfig} from "../moj-config";
+import { UserAuthService } from '../user-auth.service';
+
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
   txtLozinka:any;
   korisnik_id:any;
   pomocna:any;
-  constructor(private httpKlijent:HttpClient,private  router:Router) { }
+  constructor(private httpKlijent: HttpClient, private router: Router, private userAuthService: UserAuthService) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
     this.httpKlijent.post<LoginInformacije>(MojConfig.adresa_servera+ "/Autentifikacija/Login", saljemo).subscribe(
       (x:LoginInformacije)=>{
         if(x.isLogiran){
+          this.userAuthService.setLoginInfo(x);
           porukaSuccess("login upjesan");
           AutentifikacijaHelper.setLoginInfo(x);
           if(x.isPremisijaKorisnik)

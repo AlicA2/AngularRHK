@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { LoginInformacije } from "../_helpers/login-informacije";
 import { AutentifikacijaHelper } from "../_helpers/autentifikacija-helper";
 import { MojConfig } from "../moj-config";
+import { UserAuthService } from '../user-auth.service';
 
 
 declare function porukaSuccess(a: string): any;
@@ -24,10 +25,13 @@ export class KontaktComponent implements OnInit {
     Email: '',
     Telefon: '',
     Poruka: '',
-    korisnickiNalogID:1
+    korisnikID: null as number | null // Explicitly cast null as number | null
   };
 
-  constructor(private httpKlijent: HttpClient, private router: Router, private loginInformacije: LoginInformacije) { }
+  constructor(private httpKlijent: HttpClient,
+              private router: Router,
+              private loginInformacije: LoginInformacije,
+              private userAuthService: UserAuthService) { }
 
   onEmailInput(event: any) {
     const inputElement = event.target;
@@ -58,11 +62,8 @@ export class KontaktComponent implements OnInit {
     if (!this.validateForm()) {
       return;
     }
-    if (!this.loginInformacije.isLogiran) {
-      porukaError("Niste prijavljeni.");
-      return;
-    }
-    this.kontaktVM.korisnickiNalogID = this.loginInformacije.autentifikacijaToken.korisnickiNalogId;
+
+    this.kontaktVM.korisnikID = this.userAuthService.getKorisnikID();
 
     this.httpKlijent.post(MojConfig.adresa_servera + "/Kontakt/DodajKontakt", this.kontaktVM).subscribe(
       (response: any) => {
@@ -91,7 +92,7 @@ export class KontaktComponent implements OnInit {
       Email: '',
       Telefon: '',
       Poruka: '',
-      korisnickiNalogID: null
+      korisnikID: null
     };
   }
 }

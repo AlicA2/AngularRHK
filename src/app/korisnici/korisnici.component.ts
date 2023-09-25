@@ -14,7 +14,6 @@ export class KorisniciComponent implements OnInit {
   korisnici:any;
   ime_prezime:string = '';
   filter_ime_prezime: boolean;
-  pomocna:any=false;
   gradovi: any;
 
 
