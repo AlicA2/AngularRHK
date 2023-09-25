@@ -27,7 +27,7 @@ export class KontaktComponent implements OnInit {
     korisnickiNalogID:1
   };
 
-  constructor(private httpKlijent: HttpClient, private router: Router) { }
+  constructor(private httpKlijent: HttpClient, private router: Router, private loginInformacije: LoginInformacije) { }
 
   onEmailInput(event: any) {
     const inputElement = event.target;
@@ -45,15 +45,8 @@ export class KontaktComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
   ngOnInit() {
-    // Postavite isVisible i animationStyles prema vašim potrebama
-    this.isVisible = true; // Postavite na true ako želite da bude vidljivo
+    this.isVisible = true;
     this.animationStyles = {
       'visibility': 'visible',
       'animation-duration': '1000ms',
@@ -65,6 +58,12 @@ export class KontaktComponent implements OnInit {
     if (!this.validateForm()) {
       return;
     }
+    if (!this.loginInformacije.isLogiran) {
+      porukaError("Niste prijavljeni.");
+      return;
+    }
+    this.kontaktVM.korisnickiNalogID = this.loginInformacije.autentifikacijaToken.korisnickiNalogId;
+
     this.httpKlijent.post(MojConfig.adresa_servera + "/Kontakt/DodajKontakt", this.kontaktVM).subscribe(
       (response: any) => {
         porukaSuccess(response.message);
@@ -78,10 +77,7 @@ export class KontaktComponent implements OnInit {
       }
     );
   }
-
-  // Function to validate the form
   validateForm() {
-    // Add your validation logic here
     if (!this.kontaktVM.Ime || !this.kontaktVM.Prezime || !this.kontaktVM.Email || !this.kontaktVM.Telefon || !this.kontaktVM.Poruka) {
       porukaError("Molimo popunite sva polja.");
       return false;

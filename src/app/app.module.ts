@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import  {RouterModule, RouterOutlet} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { LoginInformacije } from "../app/_helpers/login-informacije";
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -51,7 +52,7 @@ import { KontaktComponent } from "./kontakt/kontakt.component";
       {path: "kontakt", component:KontaktComponent}
     ])
   ],
-  providers: [],
+  providers: [LoginInformacije],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

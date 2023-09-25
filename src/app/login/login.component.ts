@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   txtKorisnickiIme:any;
   txtLozinka:any;
   korisnik_id:any;
-  //Add
+  pomocna:any;
   constructor(private httpKlijent:HttpClient,private  router:Router) { }
 
   ngOnInit(): void {
@@ -29,25 +29,30 @@ export class LoginComponent implements OnInit {
       korisnickoIme:this.txtKorisnickiIme,
       lozinka:this.txtLozinka
     }
+    if(saljemo.korisnickoIme==null || saljemo.lozinka==null)
+    {
+      this.pomocna=saljemo;
+    }
     this.httpKlijent.post<LoginInformacije>(MojConfig.adresa_servera+ "/Autentifikacija/Login", saljemo).subscribe(
       (x:LoginInformacije)=>{
         if(x.isLogiran){
-          porukaSuccess("Login uspjesan");
+          porukaSuccess("login upjesan");
           AutentifikacijaHelper.setLoginInfo(x);
-          if(x.isPermisijaKorisnik)
+          if(x.isPremisijaKorisnik)
           {
             this.korisnik_id = x.autentifikacijaToken.korisnickiNalogId;
+            this.router.navigateByUrl("/pocetna");
+            porukaSuccess("Korisnik!!!");
           }
-          this.router.navigateByUrl("/pocetna");
+          if (x.autentifikacijaToken?.korisnickiNalog.isAdmin)
+            this.router.navigateByUrl("/two-f-otkljucaj");
+
         }
         else{
           AutentifikacijaHelper.setLoginInfo(null);
-          porukaError("Neuspjesan login");
+          porukaError("nesuspjesan login");
         }
       }
     )
   }
-
-
-
 }

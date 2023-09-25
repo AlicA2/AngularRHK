@@ -20,7 +20,7 @@ export class PostavkaKorisnikComponent implements OnInit {
   ngOnInit(): void {
     this.ucitajGradove();
     console.log(this.loginInfo().autentifikacijaToken.korisnickiNalog.ID)
-    if (this.loginInfo().isPermisijaKorisnik){
+    if (this.loginInfo().isPremisijaKorisnik){
       this.ucitajKorisnika();
       console.log(this.korisnik)
     }
@@ -66,7 +66,6 @@ export class PostavkaKorisnikComponent implements OnInit {
         porukaSuccess("Upjesna promjena podataka");
       });
 
-      //this.router.navigateByUrl("/oprema");
     }
     else {
       alert("polja ne smiju biti prazna");

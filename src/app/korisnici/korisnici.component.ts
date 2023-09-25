@@ -14,15 +14,20 @@ export class KorisniciComponent implements OnInit {
   korisnici:any;
   ime_prezime:string = '';
   filter_ime_prezime: boolean;
+  pomocna:any=false;
+  gradovi: any;
+
 
   constructor(private httpKlijent:HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.ucitajKorisnike();
+    this.ucitajGradove();
+
   }
 
   ucitajKorisnike(){
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Korisnik/GetAll").subscribe(x=>{
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Korisnik/GetAll", MojConfig.http_opcije()).subscribe(x=>{
       this.korisnici=x;
     })
   }
@@ -38,9 +43,14 @@ export class KorisniciComponent implements OnInit {
   }
 
   obrisi(k: any) {
-    // @ts-ignore
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Korisnik/Obrisi/${k.id}`, MojConfig.http_opcije()).subscribe(x=>{
       this.getPodaci();
     });
+  }
+
+  ucitajGradove() {
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Grad/GetAll").subscribe(x => {
+      this.gradovi = x;
+    })
   }
 }

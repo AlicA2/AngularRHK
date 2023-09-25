@@ -20,7 +20,7 @@ export class PostavkaAdminComponent implements OnInit {
   ngOnInit(): void {
     this.ucitajGradove();
     console.log(this.loginInfo().autentifikacijaToken.korisnickiNalog.ID)
-    if (this.loginInfo().isPermisijaAdmin){
+    if (this.loginInfo().isPremisijaAdmin){
       this.ucitajAdmin();
 
     }

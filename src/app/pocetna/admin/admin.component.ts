@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
     this.hubConnectionBuilder.on('SendToAdmin', (result: any) => {
       this.list.push(result);
     });
-    if(this.loginInfo().isPermisijaAdmin)
+    if(this.loginInfo().isPremisijaAdmin)
      this.some();
 
   }
