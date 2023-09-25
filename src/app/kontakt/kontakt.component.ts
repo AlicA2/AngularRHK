@@ -69,9 +69,8 @@ export class KontaktComponent implements OnInit {
       (response: any) => {
         porukaSuccess(response.message);
         this.resetForm();
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.router.navigate(['/kontakt']);
+
       },
       (error) => {
         porukaError("Greška prilikom slanja kontakta");
