@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           AutentifikacijaHelper.setLoginInfo(x);
           if(x.isPremisijaKorisnik)
           {
+            console.log(x);
             this.korisnik_id = x.autentifikacijaToken.korisnickiNalogId;
             this.router.navigateByUrl("/pocetna");
             porukaSuccess("Korisnik!!!");

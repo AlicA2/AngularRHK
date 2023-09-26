@@ -180,3 +180,18 @@
 .send_message{
 opacity: 0.8;
 }
+.contact-container2,
+.table th,
+.table td
+{
+  color:white;
+}
+.contact-title2
+{
+  margin-top:5%;
+  text-align: center;
+}
+.table
+{
+  margin-top:2.5%;
+}

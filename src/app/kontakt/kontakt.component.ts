@@ -6,7 +6,6 @@ import { AutentifikacijaHelper } from "../_helpers/autentifikacija-helper";
 import { MojConfig } from "../moj-config";
 import { UserAuthService } from '../user-auth.service';
 
-
 declare function porukaSuccess(a: string): any;
 declare function porukaError(a: string): any;
 
@@ -27,13 +26,14 @@ export class KontaktComponent implements OnInit {
     Poruka: '',
     korisnikID: null as number | null // Explicitly cast null as number | null
   };
-
+  loginInformation = AutentifikacijaHelper.getLoginInfo();
   constructor(private httpKlijent: HttpClient,
               private router: Router,
               private loginInformacije: LoginInformacije,
               private userAuthService: UserAuthService) { }
 
   onEmailInput(event: any) {
+
     const inputElement = event.target;
     let inputValue = inputElement.value;
 
@@ -50,6 +50,7 @@ export class KontaktComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.GetContactPoruke();
     this.isVisible = true;
     this.animationStyles = {
       'visibility': 'visible',
@@ -58,6 +59,14 @@ export class KontaktComponent implements OnInit {
       'animation-name': 'fadeInDown'
     };
   }
+  kontaktPoruke:any;
+  GetContactPoruke()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+'/Kontakt/GetAll',MojConfig.http_opcije())
+      .subscribe(x=>
+        this.kontaktPoruke=x)
+  }
+
   submitKontaktForm() {
     if (!this.validateForm()) {
       return;
