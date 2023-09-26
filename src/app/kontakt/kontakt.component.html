@@ -1,6 +1,6 @@
 <div class="background-container"></div>
 
-<div class="contact-container">
+<div *ngIf="this.loginInformation.isPremisijaKorisnik" class="contact-container">
   <h2 class="contact-title">KONTAKTIRAJTE NAS</h2>
   <h3 class="contact-subtitle">Vaše mišljenje nam znači.</h3>
   <div class="row">
@@ -72,3 +72,39 @@
     </div>
   </div>
 </div>
+
+
+<div *ngIf="this.loginInformation.isPremisijaAdmin" class="contact-container2">
+  <h2 class="contact-title2">Kontakt poruke</h2>
+
+  <div class="message-container">
+
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Email</th>
+        <th>Telefon</th>
+        <th>Poruka</th>
+        <th>Korisničko ime</th>
+
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let kontakt of kontaktPoruke">
+        <td>{{ kontakt.ime }}</td>
+        <td>{{ kontakt.prezime }}</td>
+        <td>{{ kontakt.email }}</td>
+        <td>{{ kontakt.telefon }}</td>
+        <td>{{ kontakt.poruka }}</td>
+        <td>{{ kontakt.korisnickoIme }}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
