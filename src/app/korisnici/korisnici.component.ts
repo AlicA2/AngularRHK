@@ -44,6 +44,7 @@ export class KorisniciComponent implements OnInit {
   obrisi(k: any) {
     this.httpKlijent.post(`${MojConfig.adresa_servera}/Korisnik/Obrisi/${k.id}`, MojConfig.http_opcije()).subscribe(x=>{
       this.getPodaci();
+      this.ucitajKorisnike();
     });
   }
 
