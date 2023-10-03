@@ -24,7 +24,7 @@ export class KontaktComponent implements OnInit {
     Email: '',
     Telefon: '',
     Poruka: '',
-    korisnikID: null as number | null // Explicitly cast null as number | null
+    korisnikID: null as number | null
   };
   loginInformation = AutentifikacijaHelper.getLoginInfo();
   constructor(private httpKlijent: HttpClient,
@@ -60,6 +60,7 @@ export class KontaktComponent implements OnInit {
     };
   }
   kontaktPoruke:any;
+
   GetContactPoruke()
   {
     this.httpKlijent.get(MojConfig.adresa_servera+'/Kontakt/GetAll',MojConfig.http_opcije())
