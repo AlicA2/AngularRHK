@@ -1,0 +1,60 @@
+.background-container {
+  background-image: url('src/assets/pozadina.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.button-add
+{
+  background-color: #56d65a;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button-add:hover
+{
+  background-color:  #e4b95b;
+  color: white;
+  border-color: #333;
+}
+.header
+{
+  margin-top:3%;
+  color:white;
+  text-align: center;
+}
+.modal-dialog
+{
+
+}
+form {
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.input-file {
+  display: none;
+}
+
+.image-preview {
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+}
+
+#previewImage {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
