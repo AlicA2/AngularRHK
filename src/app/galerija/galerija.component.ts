@@ -19,6 +19,10 @@ export class GalerijaComponent {
 
   showModal: boolean = false;
   selectedImage: string = '';
+  slike: any[] = [];
+  novaSlika:string;
+  slikainput:any;
+  firstImageId: number | null = null;
 
   loginInformation = AutentifikacijaHelper.getLoginInfo();
 
@@ -34,11 +38,17 @@ export class GalerijaComponent {
     this.selectedImage = '';
   }
 
-  slike: any[] = [];
   ngOnInit() {
     this.getSlike();
+    this.getFirstImageIdFromServer();
   }
-
+  getFirstImageIdFromServer() {
+    this.httpKlijent
+      .get<number>(MojConfig.adresa_servera + '/Galerija/GetFirstImageId')
+      .subscribe((response) => {
+        this.firstImageId = response;
+      });
+  }
   getSlike() {
     this.httpKlijent
       .get<string[]>(MojConfig.adresa_servera + '/Galerija/GetAllSlike')
@@ -48,13 +58,6 @@ export class GalerijaComponent {
         );
       });
   }
-
-
-
-
-
-  novaSlika:string;
-  slikainput:any;
   dodajSliku()
   {
     let podaci = {
@@ -65,14 +68,32 @@ export class GalerijaComponent {
       this.ngOnInit();
     });
   }
-  // Add this method to handle the picture deletion
-  deleteSlika(id: number) {
+
+
+  deleteSlika(index: number, imageUrl: string) {
     this.httpKlijent
-      .delete(MojConfig.adresa_servera + `/Galerija/DeleteSlika/${id}`)
-      .subscribe(() => {
-        this.ngOnInit(); // Refresh the gallery after deletion
-      });
+      .delete(MojConfig.adresa_servera + `/Galerija/DeleteSlika/${this.firstImageId + index}`, { responseType: 'text' })
+      .subscribe(
+        (response: string) => {
+          console.log(response); // Log the response from the server
+          if (response === 'Slika je uspješno obrisana.') {
+            // If the server response is successful, reload the page
+            location.reload(); // This will refresh the current page
+          } else {
+            // Handle any other response from the server (e.g., error messages)
+            // You can display an error message or perform an appropriate action
+            console.error('Error:', response);
+          }
+        },
+        (error) => {
+          // Handle HTTP errors here
+          console.error('HTTP Error:', error);
+        }
+      );
   }
+
+
+
 
 
   Preview() {
