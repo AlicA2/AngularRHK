@@ -19,7 +19,6 @@ import { PocetnaComponent } from './pocetna/pocetna.component';
 import { AdminComponent } from './pocetna/admin/admin.component';
 import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.component';
 import { KontaktComponent } from "./kontakt/kontakt.component";
-import { MeniComponent } from './meni/meni.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +34,7 @@ import { MeniComponent } from './meni/meni.component';
     AdminComponent,
     GalerijaComponent,
     TwoFOtkljucajComponent,
-    KontaktComponent,
-    MeniComponent
+    KontaktComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +49,7 @@ import { MeniComponent } from './meni/meni.component';
       {path:"pocetna", component:PocetnaComponent},
       {path:"galerija", component:GalerijaComponent},
       {path: "two-f-otkljucaj", component: TwoFOtkljucajComponent},
-      {path: "kontakt", component:KontaktComponent},
-      {path: "meni", component:MeniComponent},
+      {path: "kontakt", component:KontaktComponent}
     ])
   ],
   providers: [LoginInformacije, UserAuthService],
