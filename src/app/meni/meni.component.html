@@ -1,0 +1,77 @@
+<div class="background-container"></div>
+
+<h1 class="header">Restaurant Menu</h1>
+
+<button class="button-add" style="margin-right: auto; width: 10%; margin-top: 10px"  (click)="otvoriFormu=true">Dodaj novi Meni</button>
+
+<div
+  class="modal fade show"
+  id="exampleModalLive"
+  *ngIf="otvoriFormu==true"
+  tabindex="-1"
+  aria-labelledby="exampleModalLiveLabel"
+  aria-modal="true"
+  role="dialog"
+  style="display: block"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj novi Meni</h5>
+        <button
+          type="button"
+          (click)="otvoriFormu=false"
+          class="btn-close"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Ime</label>
+          <input
+            class="form-control"
+
+            placeholder="Ime"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Opis</label>
+          <input
+            class="form-control"
+
+            placeholder="Opis"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cijena</label>
+
+          <input
+            class="form-control"
+
+            placeholder="Cijena"
+          />
+        </div>
+        <form id="imageUploadForm" enctype="multipart/form-data">
+          <input type="file" id="fileInput" accept="image/*" />
+          <div class="image-preview">
+            <img id="previewImage" src="" alt="Preview Image" />
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="otvoriFormu=false">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="SpasiMeni()">
+          Spasi
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
