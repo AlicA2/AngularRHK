@@ -60,6 +60,7 @@ export class GalerijaComponent {
     let podaci = {
       novaSlika: this.novaSlika
     }
+    console.log(podaci);
     this.httpKlijent.post(MojConfig.adresa_servera+'/Galerija/DodajSliku', podaci, MojConfig.http_opcije()).subscribe(x=>{
       this.slikainput=null;
       this.ngOnInit();
