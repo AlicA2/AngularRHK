@@ -1,0 +1,6 @@
+<input type="file" (change)="onChange($event)"/>
+
+<div *ngIf="myImage">
+  <img [src]="myImage" width="100px" height="100px"/>
+  <textarea cols="50" rows="50" [(ngModel)]="myImage"></textarea>
+</div>

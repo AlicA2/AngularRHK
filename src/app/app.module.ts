@@ -7,7 +7,7 @@ import { LoginInformacije } from "../app/_helpers/login-informacije";
 import { UserAuthService } from "./user-auth.service";
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-
+import {ReactiveFormsModule} from "@angular/forms";
 import { RegistracijaAdminComponent } from './registracija-admin/registracija-admin.component';
 import { RegistracijaKorisnikComponent } from './registracija-korisnik/registracija-korisnik.component';
 import { PostavkeProfilaComponent } from './postavke-profila/postavke-profila.component';
@@ -20,6 +20,7 @@ import { AdminComponent } from './pocetna/admin/admin.component';
 import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.component';
 import { KontaktComponent } from "./kontakt/kontakt.component";
 import { MeniComponent } from './meni/meni.component';
+import { ForumComponent } from './forum/forum.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +37,14 @@ import { MeniComponent } from './meni/meni.component';
     GalerijaComponent,
     TwoFOtkljucajComponent,
     KontaktComponent,
-    MeniComponent
+    MeniComponent,
+    ForumComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'registracija-admin', component: RegistracijaAdminComponent},
@@ -53,6 +56,7 @@ import { MeniComponent } from './meni/meni.component';
       {path: "two-f-otkljucaj", component: TwoFOtkljucajComponent},
       {path: "kontakt", component:KontaktComponent},
       {path: "meni", component:MeniComponent},
+      {path: "forum", component:ForumComponent},
     ])
   ],
   providers: [LoginInformacije, UserAuthService],
