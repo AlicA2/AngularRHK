@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { LoginInformacije } from "../_helpers/login-informacije";
 import { UserAuthService } from "../user-auth.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {AutentifikacijaHelper} from "../_helpers/autentifikacija-helper";
 
 declare function porukaSuccess(a: string): any;
 declare function porukaError(a: string): any;
@@ -15,7 +16,20 @@ declare function porukaError(a: string): any;
   styleUrls: ['./meni.component.css']
 })
 export class MeniComponent implements OnInit {
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+novaForma:boolean=false;
+
+kategorije:any;
+menii:any;
+kategorija={
+  Naziv:''
+};
+meni={
+  Naziv:'',
+  Opis:'',
+  Cijena:0,
+  kategorija_id:1
+};
+
   constructor(private httpKlijent: HttpClient,
               private router: Router,
               private loginInformacije: LoginInformacije,
@@ -23,79 +37,97 @@ export class MeniComponent implements OnInit {
               private sant:DomSanitizer) { }
 
   ngOnInit(): void {
+    this.GetKategorije();
+    this.menii=this.GetMeni();
   }
 
   otvoriFormu: boolean = false;
-  meniAddVM: {
-    Naziv: string,
-    Opis: string,
-    Cijena: number,
-    Slika: string
-  } = {
-    Naziv: '',
-    Opis: '',
-    Cijena: 0,
-    Slika: ''
-  }
+
 
   SpasiMeni() {
-    if (!this.validateForm()) {
-      if (!this.base64string) {
-        return;
-      }
+    if(!this.ValidirajMeni())
+    {
+      return;
     }
-    console.log(this.meniAddVM);
-
+    this.httpKlijent.post(MojConfig.adresa_servera+"/Meni/DodajMeni",this.meni)
+      .subscribe((x)=>{
+        porukaSuccess("Uspjesno dodan meni");
+        this.GetMeni();
+        this.GetKategorije();
+        this.resetirajFormuMenia();
+      },(y)=>{
+        porukaError("Greska");
+      })
   }
-
-  resetForm() {
-    this.meniAddVM = {
-      Naziv: '',
-      Opis: '',
-      Cijena: 0,
-      Slika: ''
-    };
-    this.base64string = ''; // Clear the Base64 string when resetting the form.
+resetirajFormuMenia()
+{
+  this.meni=
+    {
+      Naziv:'',
+      Opis:'',
+      Cijena:0.00,
+      kategorija_id:1
+    }
+}
+  loginInformation = AutentifikacijaHelper.getLoginInfo();
+GetMeni()
+{
+  this.httpKlijent.get(MojConfig.adresa_servera+"/Meni/GetAll")
+    .subscribe(x=>{
+      this.menii=x;
+      console.log("Data received from server:", x);
+      console.log("menii array:", this.menii);
+    })
+}
+SpasiKategoriju()
+{
+  if(!this.ValidirajKategoriju())
+  {
+    return;
   }
-
-  validateForm() {
-    if (!this.meniAddVM.Naziv || !this.meniAddVM.Opis || !this.meniAddVM.Cijena) {
-      porukaError("Molimo popunite sva polja.");
+  this.httpKlijent.post(MojConfig.adresa_servera+"/Kategorija/DodajKategoriju",this.kategorija)
+    .subscribe((x)=>{
+      porukaSuccess("Uspjesno dodana kategorija");
+      this.GetMeni();
+      this.GetKategorije();
+      this.resetirajFormuKategorije();
+    },(y)=>{
+      porukaError("Greska");
+    })
+}
+resetirajFormuKategorije()
+{
+  this.kategorija=
+    {
+      Naziv:''
+    }
+}
+ValidirajKategoriju()
+{
+  if (!this.kategorija.Naziv) {
+    porukaError("Molimo popunite polje.");
+    return false;
+  }
+  return true;
+}
+  getCategorieName(kategorija_id: number): string {
+    const kategorija = this.kategorije.find((k:any) => k.id === kategorija_id);
+    return kategorija ? kategorija.naziv : 'N/A';
+  }
+  ValidirajMeni()
+  {
+    if (!this.meni.Opis||!this.meni.Naziv||!this.meni.Cijena||!this.meni.kategorija_id) {
+      porukaError("Molimo popunite polje.");
       return false;
     }
     return true;
   }
-
-  base64string: string = '';
-  url: string = "./assets/biftek.png";
-
-  onSelectFile(e: any) {
-    if (e.target.files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-        this.base64string = this.url.split(',')[1];
-        console.log('Base64 Data:', this.base64string);
-      };
-    }
-  }
-  fileSelected?:Blob;
-  imageUrl?:string;
-  onSelectNewFile(): void {
-    if (this.fileInput && this.fileInput.nativeElement.files) {
-      this.fileSelected = this.fileInput.nativeElement.files[0];
-      this.imageUrl = this.sant.bypassSecurityTrustUrl(window.URL.createObjectURL(this.fileSelected)) as string;
-      console.log(this.base64string);
-    }
-  }
-  ConvertToBase64()
-  {
-    let reader=new FileReader();
-    reader.readAsDataURL(this.fileSelected as Blob);
-    reader.onloadend=()=>{
-      this.base64string= reader.result as string;
-    }
-  }
+GetKategorije()
+{
+  this.httpKlijent.get(MojConfig.adresa_servera+"/Kategorija/GetAll")
+    .subscribe(x=>{
+      this.kategorije=x;
+      console.log(this.kategorije);
+    })
+}
 }
