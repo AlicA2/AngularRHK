@@ -1,42 +1,119 @@
-<div class="background-container"></div>
+  <div class="background-container"></div>
 
-<h1 class="header">Restaurant Menu</h1>
+  <h1 class="header">Meni</h1>
+  <div *ngIf="this.loginInformation.isPremisijaAdmin">
+  <button class="button-add" style="margin-right: auto; width: 10%; margin-top: 10px" (click)="otvoriFormu = true">Dodaj novi Meni</button>
 
-<button class="button-add" style="margin-right: auto; width: 10%; margin-top: 10px" (click)="otvoriFormu = true">Dodaj novi Meni</button>
+  <div class="sve">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Broj</th>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Cijena + "KM"</th>
+        <th>Kategorija</th>
+  </tr>
+      </thead>
+      <tbody>
 
-<div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj novi Meni</h5>
-        <button type="button" (click)="otvoriFormu = false" class="btn-close" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Naziv</label>
-          <input [(ngModel)]="meniAddVM.Naziv" class="form-control" placeholder="Naziv"/>
+      <tr *ngFor="let prikaz of this.menii">
+        <td>{{ prikaz.id }}</td>
+        <td>{{ prikaz.naziv }}</td>
+        <td>{{ prikaz.opis }}</td>
+        <td>{{ prikaz.cijena }}</td>
+        <td>{{ getCategorieName(prikaz.kategorija_id) }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj novu kategoriju hrane</h5>
+          <button type="button" (click)="otvoriFormu = false" class="btn-close" aria-label="Close"></button>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Opis</label>
-          <input [(ngModel)]="meniAddVM.Opis" class="form-control" placeholder="Opis" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Cijena</label>
-          <input [(ngModel)]="meniAddVM.Cijena" class="form-control" placeholder="Cijena"/>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Slika</label>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Naziv kategorije </label>
+            <input [(ngModel)]="this.kategorija.Naziv" class="form-control" placeholder="Naziv"/>
+          </div>
 
-          <input #fileInput [(ngModel)]="meniAddVM.Slika" type="file" (change)="onSelectNewFile()" accept="image/*"/>
-
-
-          <img id="previewImage" [src]="imageUrl" height="200"  />
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
-        <button type="button" class="btn btn-primary" (click)="SpasiMeni()">Spasi</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
+          <button type="button" class="btn btn-primary"  (click)="SpasiKategoriju()">Spasi</button>
+          <button type="button" class="btn btn-primary" (click)="novaForma=true">Sljedeća stranica</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="modal fade show" *ngIf="novaForma" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Dodajte novi meni</h5>
+          <button type="button" (click)="novaForma = false" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Kategorija</label>
+            <select class="form-control" [(ngModel)]="meni.kategorija_id">
+              <option *ngFor="let kategorija of kategorije" [ngValue]="kategorija.id">
+                {{ kategorija.naziv }}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Naziv</label>
+            <input [(ngModel)]="this.meni.Naziv" class="form-control" placeholder="Naziv"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Opis</label>
+            <input [(ngModel)]="this.meni.Opis" class="form-control" placeholder="Opis" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cijena</label>
+            <input [(ngModel)]="this.meni.Cijena" class="form-control" placeholder="Cijena"/>
+          </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="novaForma = false">Close</button>
+          <button type="button" class="btn btn-primary" (click)="SpasiMeni()">Spasi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
+  <div *ngIf="this.loginInformation.isPremisijaKorisnik">
+    <div class="sve">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Broj</th>
+          <th>Naziv</th>
+          <th>Opis</th>
+          <th>Cijena</th>
+          <th>Kategorija</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let prikaz of this.menii">
+          <td>{{ prikaz.id }}</td>
+          <td>{{ prikaz.naziv }}</td>
+          <td>{{ prikaz.opis }}</td>
+          <td>{{ prikaz.cijena }}</td>
+          <td>{{ getCategorieName(prikaz.kategorija_id) }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
