@@ -35,6 +35,10 @@ meni={
               private loginInformacije: LoginInformacije,
               private userAuthService: UserAuthService,
               private sant:DomSanitizer) { }
+// Dodajte ovu funkciju u vaš TypeScript fajl
+  getJelaByKategorija(kategorijaId: number) {
+    return this.menii.filter((prikaz: any) => prikaz.kategorija_id === kategorijaId);
+  }
 
   ngOnInit(): void {
     this.GetKategorije();

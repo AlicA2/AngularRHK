@@ -28,9 +28,14 @@
 }
 .header
 {
-  margin-top:3%;
+  line-height: normal;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  margin-top:50px;
+  margin-bottom: 30px;
   color:white;
   text-align: center;
+
 }
 .modal-dialog
 {
@@ -47,6 +52,16 @@ form {
 .sve
 {
   color:white;
+  text-align: center;
+}
+.kategorijaNaziv{
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 28px;
+}
+.naslovi{
+  margin-bottom:50px;
 }
 .table
 {
@@ -64,4 +79,58 @@ form {
   max-height: 100%;
   display: block;
   margin: 0 auto;
+}
+
+.jela-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.jelo {
+  padding: 10px;
+  border: 1px solid #e4b95b;
+  border-radius: 5px;
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+}
+
+.naziv-jela {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.opis-jela {
+  margin-top: 15px;
+  font-size: 12px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+
+.cijena-jela {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #56d65a;
+}
+.dotted-line {
+  background-image: linear-gradient(to right, white 33%, transparent 0%);
+  background-position: bottom;
+  background-size: 4px 2px;
+  background-repeat: repeat-x;
+  height: 1px;
+  display: block;
+  margin: 5px 0;
+}
+
+.slika-jela {
+  width: 150px; /* Prilagodite širinu slike prema vašim potrebama */
+  height: 150px; /* Prilagodite visinu slike prema vašim potrebama */
+  float: left; /* Slika će biti na lijevoj strani */
+  margin-right: 10px; /* Odstojanje između slike i teksta */
+  border-radius: 8%;
+}
+
+.tekst-jela {
+  overflow: hidden; /* Osigurava da tekst ne prelazi sliku */
 }
