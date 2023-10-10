@@ -3,24 +3,23 @@
 <h1 class="header">MENI</h1>
 <div *ngIf="this.loginInformation.isPremisijaAdmin">
   <button class="button-add" style="margin-right: auto; width: 10%; margin-top: 10px" (click)="otvoriFormu = true">Dodaj jelo/piće</button>
-
   <div class="sve">
-    <!-- Prikaz svih kategorija -->
     <div class="naslovi" *ngFor="let kategorija of kategorije">
+      <button class="button-delete" (click)="deleteKategorija(kategorija.id)">Obriši kategoriju</button>
       <h2 class="kategorijaNaziv">{{ kategorija.naziv }}</h2>
       <div class="jela-container">
-        <!-- Prikaz jela za određenu kategoriju -->
+
         <div class="jelo" *ngFor="let prikaz of getJelaByKategorija(kategorija.id)">
           <h5 class="naziv-jela">{{ prikaz.naziv }}</h5>
           <span class="dotted-line"></span>
           <p class="opis-jela">{{ prikaz.opis }}</p>
           <p class="cijena-jela">{{ prikaz.cijena }} KM</p>
+          <button class="button-delete" (click)="ObrisiMeni(prikaz.id)">Obriši meni</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- ostatak vašeg HTML koda -->
 
 <div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
     <div class="modal-dialog">
@@ -88,27 +87,21 @@
 
   <div *ngIf="this.loginInformation.isPremisijaKorisnik">
     <div class="sve">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Broj</th>
-          <th>Naziv</th>
-          <th>Opis</th>
-          <th>Cijena</th>
-          <th>Kategorija</th>
-        </tr>
-        </thead>
-        <tbody>
+      <div class="naslovi" *ngFor="let kategorija of kategorije">
 
-        <tr *ngFor="let prikaz of this.menii">
-          <td>{{ prikaz.id }}</td>
-          <td>{{ prikaz.naziv }}</td>
-          <td>{{ prikaz.opis }}</td>
-          <td>{{ prikaz.cijena }}</td>
-          <td>{{ getCategorieName(prikaz.kategorija_id) }}</td>
-        </tr>
-        </tbody>
-      </table>
+        <h2 class="kategorijaNaziv">{{ kategorija.naziv }}</h2>
+        <div class="jela-container">
+
+          <div class="jelo" *ngFor="let prikaz of getJelaByKategorija(kategorija.id)">
+            <img src="/assets/biftek.png" class="slika-jela" alt="">
+            <h5 class="naziv-jela">{{ prikaz.naziv }}</h5>
+            <span class="dotted-line"></span>
+            <p class="opis-jela">{{ prikaz.opis }}</p>
+            <p class="cijena-jela">{{ prikaz.cijena }} KM</p>
+
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
+
