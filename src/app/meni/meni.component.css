@@ -20,6 +20,16 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+.button-delete
+{
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid #000;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+}
 .button-add:hover
 {
   background-color:  #e4b95b;
@@ -124,13 +134,13 @@ form {
 }
 
 .slika-jela {
-  width: 150px; /* Prilagodite širinu slike prema vašim potrebama */
-  height: 150px; /* Prilagodite visinu slike prema vašim potrebama */
-  float: left; /* Slika će biti na lijevoj strani */
-  margin-right: 10px; /* Odstojanje između slike i teksta */
+  width: 150px;
+  height: 150px;
+  float: left;
+  margin-right: 10px;
   border-radius: 8%;
 }
 
 .tekst-jela {
-  overflow: hidden; /* Osigurava da tekst ne prelazi sliku */
+  overflow: hidden;
 }

@@ -35,7 +35,7 @@ meni={
               private loginInformacije: LoginInformacije,
               private userAuthService: UserAuthService,
               private sant:DomSanitizer) { }
-// Dodajte ovu funkciju u vaš TypeScript fajl
+
   getJelaByKategorija(kategorijaId: number) {
     return this.menii.filter((prikaz: any) => prikaz.kategorija_id === kategorijaId);
   }
@@ -46,8 +46,23 @@ meni={
   }
 
   otvoriFormu: boolean = false;
+  deleteKategorija(s:any)
+  {
+    this.httpKlijent.delete(MojConfig.adresa_servera + "/Kategorija/DeleteKategorija/" + s)
+      .subscribe(() => {
+        porukaSuccess("Uspjesno izbrisana kategorija");
+        this.GetKategorije();
+      });
+  }
+  otvoriFormuNovu:boolean=false;
+  ObrisiMeni(s: any) {
+    this.httpKlijent.delete(MojConfig.adresa_servera + "/Meni/DeleteMeni/" + s)
+      .subscribe(() => {
+        porukaSuccess("Uspjesno izbrisan meni");
+        this.GetMeni();
 
-
+      });
+  }
   SpasiMeni() {
     if(!this.ValidirajMeni())
     {
