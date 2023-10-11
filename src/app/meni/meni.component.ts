@@ -190,3 +190,4 @@ export class MeniComponent {
 }
 
 
+//komentar
