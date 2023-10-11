@@ -1,4 +1,4 @@
-<div class="background-container"></div>
+<!--<div class="background-container"></div>
 
 <h1 class="header">MENI</h1>
 <div *ngIf="this.loginInformation.isPremisijaAdmin">
@@ -104,4 +104,57 @@
       </div>
     </div>
   </div>
+-->
+<h1>Meni</h1>
 
+<form (ngSubmit)="dodajMeni()" #forma="ngForm">
+  <div class="form-group">
+    <label for="naziv">Naziv:</label>
+    <input type="text" id="naziv" name="naziv" [(ngModel)]="meni.naziv" required>
+  </div>
+  <div class="form-group">
+    <label for="opis">Opis:</label>
+    <input type="text" id="opis" name="opis" [(ngModel)]="meni.opis" required>
+  </div>
+  <div class="form-group">
+    <label for="cijena">Cijena:</label>
+    <input type="number" id="cijena" name="cijena" [(ngModel)]="meni.cijena" required>
+  </div>
+  <div class="form-group">
+    <label for="kategorija_id">Kategorija ID:</label>
+    <input type="number" id="kategorija_id" name="kategorija_id" [(ngModel)]="meni.kategorija_id">
+  </div>
+  <div class="form-group">
+    <label for="slika">Slika:</label>
+    <input type="file" (change)="handleSlikaInput($event)" id="slika" name="slika" accept="image/*" required>
+  </div>
+  <button type="submit" [disabled]="!forma.valid">Dodaj Meni</button>
+</form>
+
+
+<!-- Forma za dodavanje novog menija (kao što ste već napravili) -->
+
+<h2>Svi Meniji</h2>
+
+<div *ngIf="menii && menii.length > 0">
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Naziv</th>
+      <th>Opis</th>
+      <th>Cijena</th>
+      <th>Kategorija ID</th>
+      <th>Slika</th>
+    </tr>
+    <tr *ngFor="let meni of menii">
+      <td>{{ meni.id }}</td>
+      <td>{{ meni.naziv }}</td>
+      <td>{{ meni.opis }}</td>
+      <td>{{ meni.cijena }}</td>
+      <td>{{ meni.kategorija_id }}</td>
+      <td>
+        <img [src]="sanitizeImage(meni.slikaBase64)" alt="Slika Menija" width="200" height="150">
+      </td>
+    </tr>
+  </table>
+</div>
