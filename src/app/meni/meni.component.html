@@ -1,4 +1,4 @@
-<!--<div class="background-container"></div>
+<div class="background-container"></div>
 
 <h1 class="header">MENI</h1>
 <div *ngIf="this.loginInformation.isPremisijaAdmin">
@@ -10,151 +10,115 @@
       <div class="jela-container">
 
         <div class="jelo" *ngFor="let prikaz of getJelaByKategorija(kategorija.id)">
-          <h5 class="naziv-jela">{{ prikaz.naziv }}</h5>
-          <span class="dotted-line"></span>
-          <p class="opis-jela">{{ prikaz.opis }}</p>
-          <p class="cijena-jela">{{ prikaz.cijena }} KM</p>
+          <div class="slika-jela-container">
+            <img class="slika-jela" [src]="sanitizeImage(prikaz.slikaBase64)" alt="Slika Menija" width="200" height="150">
+          </div>
+          <div class="tekst-jela">
+            <h5 class="naziv-jela">{{ prikaz.naziv }}</h5>
+            <span class="dotted-line"></span>
+            <p class="opis-jela">{{ prikaz.opis }}</p>
+            <p class="cijena-jela">{{ prikaz.cijena }} KM</p>
+          </div>
           <button class="button-delete" (click)="ObrisiMeni(prikaz.id)">Obriši meni</button>
         </div>
+
       </div>
     </div>
   </div>
 </div>
 
 <div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj novu kategoriju hrane</h5>
-          <button type="button" (click)="otvoriFormu = false" class="btn-close" aria-label="Close"></button>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj novu kategoriju hrane</h5>
+        <button type="button" class="custom-close-button" aria-label="Close" (click)="otvoriFormu = false">
+          <span>X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Naziv kategorije </label>
+          <input [(ngModel)]="this.kategorija.Naziv" class="form-control" placeholder="Naziv"/>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Naziv kategorije </label>
-            <input [(ngModel)]="this.kategorija.Naziv" class="form-control" placeholder="Naziv"/>
-          </div>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
-          <button type="button" class="btn btn-primary"  (click)="SpasiKategoriju()">Spasi</button>
-          <button type="button" class="btn btn-primary" (click)="novaForma=true">Sljedeća stranica</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="SpasiKategoriju()">Spasi</button>
+        <button type="button" class="btn btn-primary siva-pozadina" (click)="novaForma=true">Sljedeća stranica</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="modal fade show" *ngIf="novaForma" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Dodajte novi meni</h5>
-          <button type="button" (click)="novaForma = false" class="btn-close" aria-label="Close"></button>
+<div class="modal fade show" *ngIf="novaForma" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dodajte novi meni</h5>
+        <button type="button" class="custom-close-button" aria-label="Close" (click)="novaForma = false">
+          <span>X</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Kategorija</label>
+          <select class="form-control" [(ngModel)]="meni.kategorija_id">
+            <option *ngFor="let kategorija of kategorije" [ngValue]="kategorija.id">
+              {{ kategorija.naziv }}
+            </option>
+          </select>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Kategorija</label>
-            <select class="form-control" [(ngModel)]="meni.kategorija_id">
-              <option *ngFor="let kategorija of kategorije" [ngValue]="kategorija.id">
-                {{ kategorija.naziv }}
-              </option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Naziv</label>
-            <input [(ngModel)]="this.meni.Naziv" class="form-control" placeholder="Naziv"/>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Opis</label>
-            <input [(ngModel)]="this.meni.Opis" class="form-control" placeholder="Opis" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Cijena</label>
-            <input [(ngModel)]="this.meni.Cijena" class="form-control" placeholder="Cijena"/>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">Naziv</label>
+          <input [(ngModel)]="this.meni.naziv" class="form-control" placeholder="Naziv"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Opis</label>
+          <input [(ngModel)]="this.meni.opis" class="form-control" placeholder="Opis" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cijena</label>
+          <input [(ngModel)]="this.meni.cijena" class="form-control" placeholder="Cijena"/>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Slika:</label>
+          <input type="file" (change)="handleSlikaInput($event)" class="form-control" id="slika" name="slika" accept="image/*" required>
+        </div>
+        <div *ngIf="imagePreview" class="mb-3">
+          <label class="form-label">Pregled slike:</label>
+          <img [src]="imagePreview" class="img-preview" alt="Pregled slike">
+        </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="novaForma = false">Close</button>
-          <button type="button" class="btn btn-primary" (click)="SpasiMeni()">Spasi</button>
+          <button type="button" class="btn btn-primary" (click)="dodajMeni()">Spasi</button>
         </div>
       </div>
     </div>
   </div>
-  </div>
+</div>
 
 
+<div *ngIf="this.loginInformation.isPremisijaKorisnik">
+  <div class="sve">
+    <div class="naslovi" *ngFor="let kategorija of kategorije">
+      <h2 class="kategorijaNaziv">{{ kategorija.naziv }}</h2>
+      <div class="jela-container">
 
-
-  <div *ngIf="this.loginInformation.isPremisijaKorisnik">
-    <div class="sve">
-      <div class="naslovi" *ngFor="let kategorija of kategorije">
-
-        <h2 class="kategorijaNaziv">{{ kategorija.naziv }}</h2>
-        <div class="jela-container">
-
-          <div class="jelo" *ngFor="let prikaz of getJelaByKategorija(kategorija.id)">
-            <img src="/assets/biftek.png" class="slika-jela" alt="">
+        <div class="jelo" *ngFor="let prikaz of getJelaByKategorija(kategorija.id)">
+          <div class="slika-jela-container">
+            <img class="slika-jela" [src]="sanitizeImage(prikaz.slikaBase64)" alt="Slika Menija" width="200" height="150">
+          </div>
+          <div class="tekst-jela">
             <h5 class="naziv-jela">{{ prikaz.naziv }}</h5>
             <span class="dotted-line"></span>
             <p class="opis-jela">{{ prikaz.opis }}</p>
             <p class="cijena-jela">{{ prikaz.cijena }} KM</p>
-
           </div>
         </div>
       </div>
     </div>
   </div>
--->
-<h1>Meni</h1>
-
-<form (ngSubmit)="dodajMeni()" #forma="ngForm">
-  <div class="form-group">
-    <label for="naziv">Naziv:</label>
-    <input type="text" id="naziv" name="naziv" [(ngModel)]="meni.naziv" required>
-  </div>
-  <div class="form-group">
-    <label for="opis">Opis:</label>
-    <input type="text" id="opis" name="opis" [(ngModel)]="meni.opis" required>
-  </div>
-  <div class="form-group">
-    <label for="cijena">Cijena:</label>
-    <input type="number" id="cijena" name="cijena" [(ngModel)]="meni.cijena" required>
-  </div>
-  <div class="form-group">
-    <label for="kategorija_id">Kategorija ID:</label>
-    <input type="number" id="kategorija_id" name="kategorija_id" [(ngModel)]="meni.kategorija_id">
-  </div>
-  <div class="form-group">
-    <label for="slika">Slika:</label>
-    <input type="file" (change)="handleSlikaInput($event)" id="slika" name="slika" accept="image/*" required>
-  </div>
-  <button type="submit" [disabled]="!forma.valid">Dodaj Meni</button>
-</form>
-
-
-<!-- Forma za dodavanje novog menija (kao što ste već napravili) -->
-
-<h2>Svi Meniji</h2>
-
-<div *ngIf="menii && menii.length > 0">
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Naziv</th>
-      <th>Opis</th>
-      <th>Cijena</th>
-      <th>Kategorija ID</th>
-      <th>Slika</th>
-    </tr>
-    <tr *ngFor="let meni of menii">
-      <td>{{ meni.id }}</td>
-      <td>{{ meni.naziv }}</td>
-      <td>{{ meni.opis }}</td>
-      <td>{{ meni.cijena }}</td>
-      <td>{{ meni.kategorija_id }}</td>
-      <td>
-        <img [src]="sanitizeImage(meni.slikaBase64)" alt="Slika Menija" width="200" height="150">
-      </td>
-    </tr>
-  </table>
 </div>

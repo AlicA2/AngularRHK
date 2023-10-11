@@ -101,7 +101,8 @@ export class MeniComponent {
           };
           this.GetMeni();
           this.GetKategorije();
-
+          this.imagePreview = null; // Dodajte ovu liniju da resetirate imagePreview
+          this.novaForma = false; // Zatvaranje forme nakon uspješnog dodavanja
         },
         (error) => {
           porukaError("Greška u dodavanju menija");
@@ -150,11 +151,14 @@ export class MeniComponent {
     this.GetKategorije();
     this.menii=this.GetMeni();
   }
+  imagePreview: string | null = null;
+
   handleSlikaInput(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
         this.meni.slikaBase64 = e.target.result;
       };
       reader.readAsDataURL(file);
@@ -182,10 +186,6 @@ export class MeniComponent {
       return false;
     }
     return true;
-  }
-  getCategorieName(kategorija_id: number): string {
-    const kategorija = this.kategorije.find((k:any) => k.id === kategorija_id);
-    return kategorija ? kategorija.naziv : 'N/A';
   }
 }
 
