@@ -21,6 +21,7 @@ import { TwoFOtkljucajComponent } from './two-f-otkljucaj/two-f-otkljucaj.compon
 import { KontaktComponent } from "./kontakt/kontakt.component";
 import { MeniComponent } from './meni/meni.component';
 import { ForumComponent } from './forum/forum.component';
+import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ForumComponent } from './forum/forum.component';
     TwoFOtkljucajComponent,
     KontaktComponent,
     MeniComponent,
-    ForumComponent
+    ForumComponent,
+    ForumOdgovoriComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { ForumComponent } from './forum/forum.component';
       {path: "kontakt", component:KontaktComponent},
       {path: "meni", component:MeniComponent},
       {path: "forum", component:ForumComponent},
+      {path: "forum-odgovor/:forumid", component: ForumOdgovoriComponent}
     ])
   ],
   providers: [LoginInformacije, UserAuthService],
