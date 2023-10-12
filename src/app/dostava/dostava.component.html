@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Kategorije</h3>
+      <ul>
+        <li *ngFor="let kategorija of kategorije" (click)="odaberiKategoriju(kategorija)">{{ kategorija.naziv }}</li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <h3>Odabrana Kategorija: {{ odabranaKategorija?.naziv }}</h3>
+      <div *ngIf="odabranaKategorija">
+        <ul>
+          <li *ngFor="let meni of meniUKategoriji">{{ meni.naziv }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

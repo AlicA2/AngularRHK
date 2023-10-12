@@ -22,6 +22,7 @@ import { KontaktComponent } from "./kontakt/kontakt.component";
 import { MeniComponent } from './meni/meni.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.component';
+import { DostavaComponent } from './dostava/dostava.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.componen
     KontaktComponent,
     MeniComponent,
     ForumComponent,
-    ForumOdgovoriComponent
+    ForumOdgovoriComponent,
+    DostavaComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.componen
       {path: "kontakt", component:KontaktComponent},
       {path: "meni", component:MeniComponent},
       {path: "forum", component:ForumComponent},
-      {path: "forum-odgovor/:forumid", component: ForumOdgovoriComponent}
+      {path: "forum-odgovor/:forumid", component: ForumOdgovoriComponent},
+      {path: "dostava", component: DostavaComponent}
     ])
   ],
   providers: [LoginInformacije, UserAuthService],
