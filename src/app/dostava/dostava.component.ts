@@ -18,6 +18,7 @@ export class DostavaComponent implements OnInit {
   ngOnInit() {
     this.dohvatiKategorije();
     this.dohvatiSveMeni();
+
   }
 
   dohvatiKategorije() {
@@ -35,5 +36,12 @@ export class DostavaComponent implements OnInit {
   odaberiKategoriju(kategorija: any) {
     this.odabranaKategorija = kategorija;
     this.meniUKategoriji = this.sviMeni.filter(meni => meni.kategorija_id === kategorija.id);
+    console.log(this.meniUKategoriji);
   }
+
+  Promjena(kolicina:any,meniID:any)
+  {
+
+  }
+
 }

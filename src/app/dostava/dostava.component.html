@@ -1,3 +1,4 @@
+<div class="background-container"></div>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
@@ -9,9 +10,18 @@
     <div class="col-md-9">
       <h3>Odabrana Kategorija: {{ odabranaKategorija?.naziv }}</h3>
       <div *ngIf="odabranaKategorija">
-        <ul>
-          <li *ngFor="let meni of meniUKategoriji">{{ meni.naziv }}</li>
-        </ul>
+          <div *ngFor="let meni of meniUKategoriji">
+            <div class="tekst-jela">
+              <h5 class="naziv-jela">{{ meni.naziv }}</h5>
+              <span class="dotted-line"></span>
+              <p class="opis-jela">{{ meni.opis }}</p>
+              <p class="cijena-jela">{{ meni.cijena }} KM</p>
+              <input type="number" class="form-control" [(ngModel)]="meni.quantity" (change)="Promjena(meni.quantity,meni.id)" >
+
+            </div>
+
+          </div>
+
       </div>
     </div>
   </div>
