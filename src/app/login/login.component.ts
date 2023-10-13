@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         }
         else{
           AutentifikacijaHelper.setLoginInfo(null);
-          porukaError("nesuspjesan login");
+          porukaError("neuspjesan login");
         }
       }
     )
