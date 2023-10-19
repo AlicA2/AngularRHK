@@ -1,69 +1,89 @@
-  <div class="background-container"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <h3>Kategorije</h3>
-        <ul>
-          <li class="naziv-kategorije" *ngFor="let kategorija of kategorije" (click)="odaberiKategoriju(kategorija)">{{ kategorija.naziv }}</li>
-        </ul>
-      </div>
-      <div class="col-md-9 offset-md-3">
-        <h3 class="odabrana-kategorija">Odabrana Kategorija: {{ odabranaKategorija?.naziv }}</h3>
-        <div *ngIf="odabranaKategorija">
-          <div class="jela-container">
-            <div *ngFor="let meni of meniUKategoriji" class="jelo">
-              <div class="tekst-jela">
-                <h5 class="naziv-jela">{{ meni.naziv }}</h5>
-                <span class="dotted-line"></span>
-                <p class="opis-jela">{{ meni.opis }}</p>
-                <p class="cijena-jela">{{ meni.cijena }} KM</p>
-                <img class="slika-jela" [src]="sanitizeImage(meni.slikaBase64)" alt="Slika Menija" width="200" height="150">
-                <input type="number" [(ngModel)]="meni.kolicina" placeholder="Unesite količinu" min="1" (focus)="postaviDefaultnuKolicinu(meni)" />
-                <button class="dugmeDodaj" (click)="dodajUkosaricu(meni)">naruči jelo</button>
+    <div class="background-container"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <h3>Kategorije</h3>
+          <ul>
+            <li class="naziv-kategorije" *ngFor="let kategorija of kategorije" (click)="odaberiKategoriju(kategorija)">{{ kategorija.naziv }}</li>
+          </ul>
+        </div>
+        <div class="col-md-9 offset-md-3">
+          <h3 class="odabrana-kategorija">Odabrana Kategorija: {{ odabranaKategorija?.naziv }}</h3>
+          <div *ngIf="odabranaKategorija">
+            <div class="jela-container">
+              <div *ngFor="let meni of meniUKategoriji" class="jelo">
+                <div class="tekst-jela">
+                  <h5 class="naziv-jela">{{ meni.naziv }}</h5>
+                  <span class="dotted-line"></span>
+                  <p class="opis-jela">{{ meni.opis }}</p>
+                  <p class="cijena-jela">{{ meni.cijena }} KM</p>
+                  <img class="slika-jela" [src]="sanitizeImage(meni.slikaBase64)" alt="Slika Menija" width="200" height="150">
+                  <input type="number" [(ngModel)]="meni.kolicina" placeholder="Unesite količinu" min="1" (focus)="postaviDefaultnuKolicinu(meni)" />
+                  <button class="dugmeDodaj" (click)="dodajUkosaricu(meni)">naruči jelo</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="korpa">
-          <h3>Korpa</h3>
-          <ul>
-            <li *ngFor="let jelo of odabranaJela">
-              {{ jelo.naziv }} - Količina: {{ jelo.kolicina }} - Cijena: {{ jelo.cijena * jelo.kolicina }} KM
-            </li>
-          </ul>
-            <h4 class="ukupnaCijena">Ukupna cijena: {{ ukupnaCijena }} KM</h4>
-            <button *ngIf="prikaziDostaviButton" (click)="otvoriFormu = true" class="dugmeDostavi">DOSTAVI</button>
+            <div class="korpa">
+            <h3>Korpa</h3>
+            <ul>
+              <li *ngFor="let jelo of odabranaJela">
+                {{ jelo.naziv }} - Količina: {{ jelo.kolicina }} - Cijena: {{ jelo.cijena * jelo.kolicina }} KM
+              </li>
+            </ul>
+              <h4 class="ukupnaCijena">Ukupna cijena: {{ ukupnaCijena }} KM</h4>
+              <button *ngIf="prikaziDostaviButton" (click)="otvoriFormu = true" class="dugmeDostavi">DOSTAVI</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLiveLabel">DOSTAVA FORMA</h5>
-          <button type="button" class="custom-close-button" aria-label="Close" (click)="otvoriFormu = false">
-            <span>X</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Cijena</label>
-            <input class="form-control" [(ngModel)]="ukupnaCijena" placeholder="Unesite cijenu" name="Cijena" required />
+    <div class="modal fade show" id="exampleModalLive" *ngIf="otvoriFormu" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLiveLabel">DOSTAVA FORMA</h5>
+            <button type="button" class="custom-close-button" aria-label="Close" (click)="otvoriFormu = false">
+              <span>X</span>
+            </button>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Količina</label>
-            <input class="form-control" [(ngModel)]="dostavaVM.Kolicina" placeholder="Unesite količinu" name="Kolicina" required />
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Ime</label>
+              <input disabled class="form-control" [(ngModel)]="korisnik.ime" placeholder="Ime" name="Ime" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Prezime</label>
+              <input disabled class="form-control" [(ngModel)]="korisnik.prezime" placeholder="Prezime" name="Prezime" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Adresa</label>
+              <input class="form-control" [(ngModel)]="dostavaVM.Adresa" placeholder="Unesite adresu dostave" name="Adresa" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Telefon</label>
+              <input class="form-control" [(ngModel)]="dostavaVM.Telefon" placeholder="Unesite broj telefona" name="Telefon" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Informacije</label>
+              <div *ngFor="let jelo of odabranaJela">
+                <input disabled class="form-control" [value]="jelo.naziv + ' - Količina: ' + jelo.kolicina" placeholder="Informacije" name="Informacije" />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Kolicina</label>
+              <input disabled class="form-control" [(ngModel)]="dostavaVM.Kolicina" placeholder="Kolicina" name="Kolicina" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Cijena</label>
+              <input disabled class="form-control" [(ngModel)]="dostavaVM.Cijena" placeholder="Cijena" name="Cijena" required />
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Zatvori</button>
+            <button name="submit" class="btn-black send_message" type="submit" (click)="submitDostavaForm()">Plati</button>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Adresa</label>
-            <input class="form-control" [(ngModel)]="dostavaVM.Adresa" placeholder="Unesite adresu" name="Adresa" required />
-          </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
-          <button name="submit" class="btn-black send_message" type="submit" (click)="submitDostavaForm()"></button>
         </div>
       </div>
     </div>
