@@ -81,3 +81,90 @@
   margin-bottom: 35px;
   font-size: 30px;
 }
+
+.result-container {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.result-title {
+  font-size: 20px;
+  margin: 0;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.result-property {
+  font-weight: bold;
+}
+
+.result-value {
+  font-weight: normal;
+}
+/* Apply styles to the Aggregated Data container */
+#aggregated-data-container {
+  background-color: #f3f3f3;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+/* Style the header */
+#aggregated-data-container h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Style each data entry */
+.data-entry {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+/* Style specific data elements */
+.data-entry .header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Add spacing and border to the JSON data */
+.data-entry .json-data {
+  border: 1px solid #ddd;
+  padding: 10px;
+  white-space: pre-line;
+}
+
+/* Add some spacing to individual data elements */
+.data-entry .data-element {
+  margin-bottom: 5px;
+}
+
+/* Style specific elements */
+.data-entry .kartica {
+  color: blue;
+  font-weight: bold;
+}
+
+.data-entry .cijena {
+  color: green;
+  font-weight: bold;
+}
+
+.data-entry .telefon {
+  color: #3333cc;
+  font-weight: bold;
+}
+
+.data-entry .adresa-dostave {
+  color: #ff6600;
+  font-weight: bold;
+}

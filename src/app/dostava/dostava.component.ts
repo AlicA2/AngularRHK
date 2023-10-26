@@ -7,6 +7,7 @@ import { UserAuthService } from '../user-auth.service';
 import { Router } from '@angular/router';
 import { LoginInformacije } from '../_helpers/login-informacije';
 
+
 declare function porukaSuccess(a: string): any;
 declare function porukaError(a: string): any;
 
@@ -20,106 +21,497 @@ export class DostavaComponent implements OnInit {
   odabranaKategorija: any;
   meniUKategoriji: any[];
   sviMeni: any[];
-  odabranaJela: any[] = [];
-  dostave: any[];
-  ukupnaCijena: number = 0;
-  prikaziDostaviButton: boolean = false;
-  otvoriFormu: boolean = false;
-  selectedMeniItems: number[] = [];
-
-  dostavaVM = {
-    Cijena: 0, // Changed to a number type
-    Kolicina: 0,
-    Adresa: '',
-    Telefon: '',
-    meni_id: null as number | null,
-    korisnik_id: null as number | null,
-  };
-
+  sastavKorpe:any;
+  slanjeUKorpuu={
+    Kolicina:0,
+    meni_id:0,
+    korisnik_id:0
+  }
+  selectedPaymentMethod:string = 'gotovinsko';
+  editableQuantity: number;
+  dostavaMeniSastav:any[]=[];
+  izbrisiId:any;
+  dostavaForma:boolean=false;
+  korpaMeniResults: any[] = [];
+  ukupnaVrijednostDostave:number;
+  formaNova:boolean=false;
   constructor(
-    private http: HttpClient,
+    private httpKlijent: HttpClient,
     private sanitizer: DomSanitizer,
     private userAuthService: UserAuthService,
     private router: Router
   ) {}
-
+  selectedResult:any;
   loginInformation = AutentifikacijaHelper.getLoginInfo();
+
 
   korisnik: any;
 
   ngOnInit() {
     this.dohvatiKategorije();
+
     this.dohvatiSveMeni();
-    this.dohvatiDostave();
+
     this.GetKorisnici();
+
+    this.dohvatiKorpu();
+
+    this.TajKorisnik();
+
+    this.DohvatiDostavu();
+    this.DohvatiKartice();
+  }
+  sveKartice:any;
+  DohvatiKartice()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kartica/GetAll")
+      .subscribe(x=>{
+        this.sveKartice=x;
+      })
   }
 
+  zaPopuniti={
+    AdresaDostave:'',
+    TelefonDostave:'',
+    kartica_id:''
+  }
+  kartica={
+    Ime:'',
+    Prezime:'',
+    BrojKartice:'',
+    TipKartice:"debitcard",
+    AdresaRacuna:'',
+    Grad:'',
+    Drzava:'',
+    PostanskiBroj:'',
+    Telefon:'',
+    SigurnosniKod:'',
+    DatumIsteka:'',
+    korisnik_id:this.loginInformation.autentifikacijaToken.korisnickiNalogId
+  }
+  sveDostave:any;
+  DohvatiDostavu()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Dostava/GetAll")
+      .subscribe(x=>{
+        this.sveDostave=x;
+      })
+
+  }
+
+Prikazz()
+{
+  for (let i = 0; i < this.sveDostave.length; i++) {
+    const currentItem = this.sveDostave[i];
+    const korisnikId = currentItem.korisnik_id;
+
+    if (!this.aggregatedData[korisnikId]) {
+      this.aggregatedData[korisnikId] = {
+        korisnik:currentItem.korisnik_id,
+        datumKreiranja: currentItem.datumKreiranja,
+        Cijena: currentItem.cijena,
+        Telefon: currentItem.telefonDostave,
+        adresaDostave: currentItem.adresaDostave,
+        kartica_id: currentItem.kartica_id,
+        meni_id: [],
+        kolicina: [],
+      };
+    }
+    this.aggregatedData[korisnikId].meni_id.push(currentItem.meni_id);
+    this.aggregatedData[korisnikId].kolicina.push(currentItem.kolicina);
+  }
+}
+kartica_id:number =null;
+PosaljiDostavu() {
+    if (this.selectedPaymentMethod === 'gotovinsko') {
+      if (!this.zaPopuniti.AdresaDostave || !this.zaPopuniti.TelefonDostave) {
+        porukaError("Popunite polja");
+        return;
+      }
+
+      for (let i = 0; i < this.sastavKorpe.length; i++) {
+        if (this.sastavKorpe[i].korisnik_id === this.loginInformation.autentifikacijaToken.korisnickiNalogId) {
+           const dataToSend = {
+            korisnik_id: this.loginInformation.autentifikacijaToken.korisnickiNalogId,
+            AdresaDostave: this.zaPopuniti.AdresaDostave,
+            TelefonDostave: this.zaPopuniti.TelefonDostave,
+            meni_id: this.sastavKorpe[i].meni_id,
+            Kolicina: this.sastavKorpe[i].kolicina,
+            Cijena: this.ukupnaVrijednostDostave,
+             Ime:'',
+             Prezime:'',
+             BrojKartice:'',
+             TipKartice:'',
+             AdresaRacuna:'',
+             Grad:'',
+             Drzava:'',
+             PostanskiBroj:'',
+             Telefon:'',
+             SigurnosniKod:'',
+             DatumIsteka:'',
+             kartica_id:this.kartica_id
+          };
+
+          if (
+            dataToSend.Ime == null ||
+            dataToSend.Prezime == null ||
+            dataToSend.BrojKartice == null ||
+            dataToSend.TipKartice == null ||
+            dataToSend.AdresaRacuna == null ||
+            dataToSend.Grad == null ||
+            dataToSend.Drzava == null ||
+            dataToSend.PostanskiBroj == null ||
+            dataToSend.Telefon == null ||
+            dataToSend.SigurnosniKod == null ||
+            dataToSend.DatumIsteka == null
+          ) {
+            dataToSend.kartica_id = null;
+          }
+          console.log(dataToSend);
+          this.httpKlijent.post(MojConfig.adresa_servera+"/Dostava/DodajDostavu",dataToSend)
+            .subscribe(x=>{
+              porukaSuccess("Uspjesno dodana dostava");
+            },y=>{
+              porukaError("Greska prilikom dodavanja dostave");
+            })
+        }
+      }
+      this.Resetuj();
+      this.IzbrisiKorpu();
+      this.dostavaForma = false;
+
+    }
+  if (this.selectedPaymentMethod === 'karticno') {
+    if (!this.zaPopuniti.AdresaDostave || !this.zaPopuniti.TelefonDostave) {
+      porukaError("Popunite polja");
+      return;
+    }
+    if (
+      this.kartica.Ime == null ||
+      this.kartica.Prezime == null ||
+      this.kartica.BrojKartice == null ||
+      this.kartica.TipKartice == null ||
+      this.kartica.AdresaRacuna == null ||
+      this.kartica.Grad == null ||
+      this.kartica.Drzava == null ||
+      this.kartica.PostanskiBroj == null ||
+      this.kartica.Telefon == null ||
+      this.kartica.SigurnosniKod == null ||
+      this.kartica.DatumIsteka == null
+    )
+    {
+      porukaError("Unesite podatke o kartici");
+    }
+    for (let i = 0; i < this.sastavKorpe.length; i++) {
+      if (this.sastavKorpe[i].korisnik_id === this.loginInformation.autentifikacijaToken.korisnickiNalogId) {
+        const dataToSend = {
+          korisnik_id: this.loginInformation.autentifikacijaToken.korisnickiNalogId,
+          AdresaDostave: this.zaPopuniti.AdresaDostave,
+          TelefonDostave: this.zaPopuniti.TelefonDostave,
+          meni_id: this.sastavKorpe[i].meni_id,
+          Kolicina: this.sastavKorpe[i].kolicina,
+          Cijena:this.ukupnaVrijednostDostave,
+          Ime:this.kartica.Ime,
+          Prezime:this.kartica.Prezime,
+          BrojKartice:this.kartica.BrojKartice,
+          TipKartice:this.kartica.TipKartice,
+          AdresaRacuna:this.kartica.AdresaRacuna,
+          Grad:this.kartica.Grad,
+          Drzava:this.kartica.Drzava,
+          PostanskiBroj:this.kartica.PostanskiBroj,
+          Telefon:this.kartica.Telefon,
+          SigurnosniKod:this.kartica.SigurnosniKod,
+          DatumIsteka:this.kartica.DatumIsteka,
+          kartica_id:this.kartica_id
+        };
+        this.httpKlijent.post(MojConfig.adresa_servera+"/Dostava/DodajDostavu",dataToSend)
+          .subscribe(x=>{
+            porukaSuccess("Uspjesno dodana dostava");
+          },y=>{
+            porukaError("Greska prilikom dodavanja dostave");
+          })
+      }
+    }
+    this.Resetuj();
+    this.IzbrisiKorpu();
+    this.dostavaForma = false;
+
+  }
+
+
+  }
+  Resetuj()
+  {
+    this.zaPopuniti={
+      AdresaDostave:'',
+      TelefonDostave:'',
+      kartica_id:''
+    }
+  }
+  IzbrisiKorpu()
+  {
+    for (let i=0;i<this.sastavKorpe.length;i++)
+    {
+      if(this.sastavKorpe[i].korisnik_id===this.loginInformation.autentifikacijaToken.korisnickiNalogId)
+      {
+          this.httpKlijent.delete(MojConfig.adresa_servera+"/Korpa/Delete/"+this.sastavKorpe[i].id)
+            .subscribe((x)=>{
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            },(y)=>{
+              porukaError("Greska prilikom brisanja korpe");
+            })
+      }
+    }
+  }
+sviKorisnici:any;
+korisnikPrikaz:any;
+aggregatedData: any = {};
+  getAggregatedDataKeys() {
+    return Object.keys(this.aggregatedData);
+  }
+
+  ImePrezimeKorisnika(korisnik:any)
+  {
+    var prikazImena:any;
+    for(let i=0;i<this.sviKorisnici.length;i++)
+    {
+      if(this.sviKorisnici[i].id===korisnik)
+      {
+        prikazImena=this.sviKorisnici[i].ime+" "+this.sviKorisnici[i].prezime;
+      }
+    }
+    return prikazImena;
+
+  }
+  Poziv(meni_id:number[], kolicina:number[])
+  {
+    const menuDetails = [];
+
+    for (let j = 0; j < meni_id.length; j++) {
+      const currentMeniId = meni_id[j];
+      const currentKolicina = kolicina[j];
+
+      for (let i = 0; i < this.sviMeni.length; i++) {
+        if (this.sviMeni[i].id === currentMeniId) {
+          const menuInfo = {
+            Name: this.sviMeni[i].naziv,
+            Description: this.sviMeni[i].opis,
+            Price: this.sviMeni[i].cijena,
+            Quantity: currentKolicina,
+          };
+          menuDetails.push(menuInfo);
+        }
+      }
+    }
+
+    return menuDetails;
+  }
+  IspisDostavaa()
+{
+
+}
+placanje_kartica:any;
+  Placanje(kartica_id: number) {
+    const kartica = this.sveKartice.find((kartica: any) => kartica.id === kartica_id);
+    console.log(kartica);
+    if (kartica) {
+      if (
+        (kartica.Ime === null || kartica.Ime === '') &&
+        (kartica.Prezime === null || kartica.Prezime === '') &&
+        (kartica.BrojKartice === null || kartica.BrojKartice === '') &&
+        (kartica.TipKartice === null || kartica.TipKartice === '') &&
+        (kartica.AdresaRacuna === null || kartica.AdresaRacuna === '') &&
+        (kartica.Grad === null || kartica.Grad === '') &&
+        (kartica.Drzava === null || kartica.Drzava === '') &&
+        (kartica.PostanskiBroj === null || kartica.PostanskiBroj === '') &&
+        (kartica.Telefon === null || kartica.Telefon === '') &&
+        (kartica.SigurnosniKod === null || kartica.SigurnosniKod === '') &&
+        (kartica.DatumIsteka === null || kartica.DatumIsteka === '')
+      ) {
+        console.log('Gotovinsko placanje');
+        return 'Gotovinsko placanje';
+      }
+    }
+
+    console.log('Karticno placanje');
+    return 'Karticno placanje';
+  }
+
+  GetSveKorisnike()
+{
+  this.httpKlijent.get(MojConfig.adresa_servera+"/Korisnik/GetAll")
+    .subscribe(x=>{
+      this.sviKorisnici=x;
+    })
+
+}
   GetKorisnici() {
-    this.http
+    this.httpKlijent
       .get(MojConfig.adresa_servera + '/Korisnik/GetById?id=' + this.loginInformation.autentifikacijaToken.korisnickiNalogId)
       .subscribe((x) => {
         this.korisnik = x;
-        console.log(this.korisnik);
+        this.DohvatiDostavu();
       });
   }
+  dohvatiKorpu()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Korpa/GetAll")
+      .subscribe((x)=>{
+        this.sastavKorpe=x;
+        this.Ispis();
+      })
+  }
+  Ispis() {
+      for (let i = 0; i < this.sastavKorpe.length; i++) {
+       if (this.sastavKorpe[i].korisnik_id === this.loginInformation.autentifikacijaToken.korisnickiNalogId) {
+         const meniId = this.sastavKorpe[i].meni_id;
+          this.UhvatiMeni(meniId);
 
-  dohvatiDostave() {
-    this.http.get(MojConfig.adresa_servera + '/Dostava/GetAll').subscribe((data: any) => {
-      this.dostave = data;
-    });
+           }
+      }
+  }
+  TajKorisnik() {
+    for (let i = 0; i < this.sastavKorpe.length; i++) {
+      if (this.sastavKorpe[i].korisnik_id === this.loginInformation.autentifikacijaToken.korisnickiNalogId) {
+        for (let j = 0; j < this.sviMeni.length; j++) {
+          if (this.sastavKorpe[i].meni_id === this.sviMeni[j].id) {
+            this.dostavaMeniSastav.push(this.sviMeni[j]);
+
+          }
+        }
+      }
+    }
+  }
+  UhvatiMeni(meniId: number) {
+    this.httpKlijent.get(MojConfig.adresa_servera + "/Meni/GetById/" + meniId)
+      .subscribe((x) => {
+        this.korpaMeniResults.push(x);
+      });
+  }
+  calculateUkupnaCijena() {
+    let ukupnaCijena = 0;
+
+    const loggedUserId = this.loginInformation.autentifikacijaToken.korisnickiNalogId;
+
+    for (let i = 0; i < this.korpaMeniResults.length; i++) {
+      const meniId = this.korpaMeniResults[i].id;
+
+      for (let j = 0; j < this.sastavKorpe.length; j++) {
+        const sastav = this.sastavKorpe[j];
+
+        if (sastav.korisnik_id === loggedUserId && sastav.meni_id === meniId) {
+          ukupnaCijena += this.korpaMeniResults[i].cijena * sastav.kolicina;
+        }
+      }
+    }
+    ukupnaCijena = parseFloat(ukupnaCijena.toFixed(2));
+    this.ukupnaVrijednostDostave=ukupnaCijena;
+    return ukupnaCijena;
+  }
+  getSastavKorpaKolicina(meniId: number): number {
+    const sastav = this.sastavKorpe.find((item:any) => item.meni_id === meniId);
+    return sastav ? sastav.kolicina : 0;
+  }
+  nova:number;
+  saveEditableQuantity() {
+    for (let i=0; i<this.sastavKorpe.length;i++)
+    {
+      for (let j=0;j<this.meniUKategoriji.length;j++)
+      {
+        if(this.sastavKorpe[i].meni_id===this.meniUKategoriji[j].id&&this.sastavKorpe[i].korisnik_id===this.loginInformation.autentifikacijaToken.korisnickiNalogId)
+        {
+        if(this.sastavKorpe[i].meni_id===this.selectedResult.id)
+          {
+            this.nova=this.sastavKorpe[i].id;
+            this.sastavKorpe[i].kolicina=this.editableQuantity;
+
+            console.log(this.nova);
+            console.log(this.sastavKorpe)
+            this.httpKlijent.put(MojConfig.adresa_servera+"/Korpa/UpdateKolicina/"+this.nova,this.sastavKorpe[i])
+              .subscribe((x)=>{
+                porukaSuccess("Uspjesno");
+                this.dohvatiSveMeni();
+                this.formaNova=false;
+              },(y)=>{
+                porukaError("Greska");
+              })
+
+
+          }
+        }
+      }
+    }
   }
 
-  dodajUkosaricu(meni: any) {
+Delete(id:any)
+{
+  console.log(id);
+  const nadji= this.sastavKorpe.find((result:any)=>result.meni_id===id);
+  this.izbrisiId=nadji.id;
+  console.log(nadji);
+  console.log(this.izbrisiId);
+  if(this.loginInformation.autentifikacijaToken.korisnickiNalogId===nadji.korisnik_id)
+  {
+      this.httpKlijent.delete(MojConfig.adresa_servera+"/Korpa/Delete/"+ this.izbrisiId)
+        .subscribe((x)=>{
+          porukaSuccess("Uspjesno");
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        },(y)=>{
+          porukaError("Greska");
+        })
+  }
+
+
+}
+openEditModal(result: any) {
+    this.selectedResult = result;
+    this.editableQuantity = this.getSastavKorpaKolicina(result.id);
+  }
+DodajKorpa(meni:any)
+{
+  this.slanjeUKorpuu.meni_id = meni;
+  this.slanjeUKorpuu.korisnik_id = this.loginInformation.autentifikacijaToken.korisnickiNalogId;
+  const specificMeni = this.meniUKategoriji.find((item) => item.id === meni);
+
+  if (specificMeni) {
+    this.slanjeUKorpuu.Kolicina = specificMeni.Kolicina;
+  } else {
+    this.slanjeUKorpuu.Kolicina = 0;
+  }
+
+  this.httpKlijent.post(MojConfig.adresa_servera+"/Korpa/DodajKorpu",this.slanjeUKorpuu)
+    .subscribe((x)=>{
+      porukaSuccess("Poslano");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    },(y)=>{
+      porukaError("Greska");
+    })
+}
+ postaviDefaultnuKolicinu(meni: any) {
     if (!meni.kolicina || meni.kolicina < 1) {
-      porukaError('Unesite količinu');
-      return;
+      meni.kolicina = 1;
     }
-    const postojecaStavka = this.odabranaJela.find((jelo) => jelo.id === meni.id);
-
-    if (postojecaStavka) {
-      postojecaStavka.kolicina += meni.kolicina;
-    } else {
-      const odabranoJelo = {
-        id: meni.id,
-        naziv: meni.naziv,
-        cijena: meni.cijena,
-        kolicina: meni.kolicina,
-      };
-      this.odabranaJela.push(odabranoJelo);
-      this.selectedMeniItems.push(meni.id);
-    }
-    this.izracunajUkupnuCijenu();
-    this.prikaziDostaviButton = true;
-    this.dostavaVM.Kolicina = meni.kolicina; // Update the Kolicina in the modal
-
-    porukaSuccess(`Jelo ${meni.naziv} dodano u košaricu u količini od ${meni.kolicina} komada.`);
-    console.log(`Dodano jelo s ID: ${meni.id}, količina: ${meni.kolicina}`);
   }
-
-
-  izracunajUkupnuCijenu() {
-    this.ukupnaCijena = this.odabranaJela.reduce((total, jelo) => total + jelo.cijena * jelo.kolicina, 0);
-    this.dostavaVM.Cijena=this.ukupnaCijena;
-  }
-
   dohvatiKategorije() {
-    this.http.get(MojConfig.adresa_servera + '/Kategorija/GetAll').subscribe((data: any) => {
+    this.httpKlijent.get(MojConfig.adresa_servera + '/Kategorija/GetAll').subscribe((data: any) => {
       this.kategorije = data;
     });
   }
-
   dohvatiSveMeni() {
-    this.http.get(MojConfig.adresa_servera + '/Meni/GetAll').subscribe((data: any) => {
+    this.httpKlijent.get(MojConfig.adresa_servera + '/Meni/GetAll').subscribe((data: any) => {
       this.sviMeni = data;
     });
   }
-
   odaberiKategoriju(kategorija: any) {
     this.odabranaKategorija = kategorija;
     this.meniUKategoriji = this.sviMeni.filter((meni) => meni.kategorija_id === kategorija.id);
-    console.log(this.meniUKategoriji);
   }
-
   sanitizeImage(imageData: string): SafeUrl {
     if (imageData) {
       const imageUrl = 'data:image/png;base64,' + imageData;
@@ -127,45 +519,5 @@ export class DostavaComponent implements OnInit {
     }
     return '';
   }
-
-  postaviDefaultnuKolicinu(meni: any) {
-    if (!meni.kolicina || meni.kolicina < 1) {
-      meni.kolicina = 1;
-    }
-  }
-
-  resetForm() {
-    this.dostavaVM = {
-      Cijena: 0, // Changed to a number type
-      Kolicina: 0,
-      Adresa: '',
-      Telefon: '',
-      meni_id: null,
-      korisnik_id: null,
-    };
-  }
-
-  submitDostavaForm() {
-    // Validate the form if needed
-
-    const dostavaAddVM = {
-      Cijena: this.ukupnaCijena,
-      Kolicina: this.dostavaVM.Kolicina,
-      Adresa: this.dostavaVM.Adresa,
-      BrojTelefona: this.dostavaVM.Telefon,
-      korisnik_id: this.korisnik.id,
-      MeniItems: this.selectedMeniItems,
-    };
-
-    this.http.post(MojConfig.adresa_servera + '/api/dostava', dostavaAddVM).subscribe(
-      (response: any) => {
-        porukaSuccess(response.message);
-        this.resetForm();
-        this.router.navigate(['/dostava']);
-      },
-      (error) => {
-        porukaError('Greška prilikom slanja dostave');
-      }
-    );
-  }
 }
+
