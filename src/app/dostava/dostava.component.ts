@@ -61,6 +61,7 @@ export class DostavaComponent implements OnInit {
     this.DohvatiDostavu();
     this.DohvatiKartice();
   }
+
   sveKartice:any;
   DohvatiKartice()
   {

@@ -1,30 +1,30 @@
 
 
- /* login.component.css */
- .d-flex.justify-content-center {
-   background-image: url('src/assets/slikaPocetna.png'); /* Putanja do slike u assets direktorijumu */
-   background-size: cover; /* Opciono: podešava veličinu slike tako da pokrije cijeli div */
-   background-repeat: no-repeat; /* Opciono: sprečava ponavljanje slike */
-   background-attachment: fixed; /* Opciono: fiksira pozadinu pri skroliranju */
-   position: fixed;
+/* login.component.css */
+.d-flex.justify-content-center {
+  background-image: url('src/assets/slikaPocetna.png'); /* Putanja do slike u assets direktorijumu */
+  background-size: cover; /* Opciono: podešava veličinu slike tako da pokrije cijeli div */
+  background-repeat: no-repeat; /* Opciono: sprečava ponavljanje slike */
+  background-attachment: fixed; /* Opciono: fiksira pozadinu pri skroliranju */
+  position: fixed;
 
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   z-index: -1;
- }
- .form-label {
-   color: white;
- }
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.form-label {
+  color: white;
+}
 
- /* Postavljanje bijele boje teksta za input elemente */
- .form-control {
-   color: black;
- }
- .d-flex.justify-content-center {
-   margin-top: 50px; /* Prilagodite vrednost prema vašim potrebama */
- }
- form {
-   margin-bottom: 300px; /* Prilagodite vrednost prema vašim potrebama */
- }
+/* Postavljanje bijele boje teksta za input elemente */
+.form-control {
+  color: black;
+}
+.d-flex.justify-content-center {
+  margin-top: 50px; /* Prilagodite vrednost prema vašim potrebama */
+}
+form {
+  margin-bottom: 300px; /* Prilagodite vrednost prema vašim potrebama */
+}

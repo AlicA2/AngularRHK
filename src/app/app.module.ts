@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import  {RouterModule, RouterOutlet} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
-import { LoginInformacije } from "../app/_helpers/login-informacije";
+import { LoginInformacije } from "./_helpers/login-informacije";
 import { UserAuthService } from "./user-auth.service";
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -23,7 +23,7 @@ import { MeniComponent } from './meni/meni.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.component';
 import { DostavaComponent } from './dostava/dostava.component';
-
+import { ONamaComponent} from './o-nama/onama.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,8 @@ import { DostavaComponent } from './dostava/dostava.component';
     MeniComponent,
     ForumComponent,
     ForumOdgovoriComponent,
-    DostavaComponent
+    DostavaComponent,
+    ONamaComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,9 @@ import { DostavaComponent } from './dostava/dostava.component';
       {path: "meni", component:MeniComponent},
       {path: "forum", component:ForumComponent},
       {path: "forum-odgovor/:forumid", component: ForumOdgovoriComponent},
-      {path: "dostava", component: DostavaComponent}
+      {path: "dostava", component: DostavaComponent},
+      {path: "o-nama", component: ONamaComponent}
+
     ])
   ],
   providers: [LoginInformacije, UserAuthService],

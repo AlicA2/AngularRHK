@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 export class AppComponent {
   constructor(private httpKlijent:HttpClient, private router:Router) {
   }
+  loginInformation = AutentifikacijaHelper.getLoginInfo();
 
   loginInfo():LoginInformacije {
     return AutentifikacijaHelper.getLoginInfo();

@@ -1,44 +1,15 @@
-<div class="background-container"></div>
+<video autoplay loop muted playsinline class="background-video">
+  <source src="assets/video1.mp4" type="video/mp4">
+</video>
+<audio autoplay loop>
+  <source src="assets/muzika.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
-  <h2 *ngIf="loginInfo().isLogiran" class="text-align-center text-center mt-3 mb-3" style="color:white">
-    Dobro došli <span class="text-primary" style="text-decoration: underline;">{{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}</span> u restoran Husin Konak
-  </h2>
-  <h6 class="centered-h6">*Potpuni ugođaj*</h6>
-  <div class="content">
-    <div class="text">
-      <p>
-        Jedan od najpoznatijih restorana koji je počeo sa radom u 2023. godini, nalazi se na adresi Bugojno. Restoran posjeduje 250 kapacitetnih mjesta, sa posebnim dijelom - baštom za vaše ljubimce. Ukoliko ste u potrazi za nečim autentičnim i novim, ovo mjesto je onda za vas.
-      </p>
-      <p>
-        Ambijent odiše modernim i sofisticiranim dizajnom, smještenim u opuštenom i intimnom ambijentu, koji vam omogućava da doživite prijatnu i udobnu atmosferu bilo da ste na poslovnom sastanku, romantičnoj večeri ili u krugu prijatelja. Osim po dekoru, ovo mjesto se izdvaja i po hrani i pažljivo odabranim pićima vrhunskog kvaliteta.
-      </p>
-      <p>
-        Dobro nam došli!
-      </p>
-    </div>
-    <img src="assets/galerija1.PNG" alt="Slika restorana" class="image">
-  </div>
-  <div class="black-background">
-  <h3 class="centered-h3">IZDVOJENA JELA</h3>
-  <p class="centered-h6">Neka od izdvojenih jela iz naše ponude.</p>
-  <div class="image-gallery">
-    <div class="gallery-item">
-      <img src="assets/rib-eye.png" alt="Slika 2" class="gallery-image">
-      <p class="gallery-description">RIB-EYE DRY AGED</p>
-      <p class="gallery-small-description">grilovano povrće,rukola</p>
-    </div>
-    <div class="gallery-item">
-      <img src="assets/biftek.png" alt="Slika 3" class="gallery-image">
-      <p class="gallery-description">BIFTEK U ACCETU I MASLINOVOM ULJU</p>
-      <p class="gallery-small-description">sa grilovanim povrćem i krompirom</p>
-
-    </div>
-    <div class="gallery-item">
-      <img src="assets/curetina.png" alt="Slika 4" class="gallery-image">
-      <p class="gallery-description">ĆURETINA SA MLINCIMA U GORGONZOLA SOSU</p>
-      <p class="gallery-small-description">na šefov način</p>
-    </div>
-    </div>
-  </div>
+  <h4 *ngIf="loginInfo().isLogiran" class="naslov" style="color:white">
+    D O B R O D O Š L I <span class="text-primary" style="text-decoration: underline;">{{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}</span>
+  </h4>
+  <div class="naziv">HUSIN KONAK</div>
+  <div class="restoran">RESTORAN</div>
+  <p class="podnaslov">SINCE&nbsp; 1945</p>
 </div>

@@ -10,14 +10,16 @@ import {Router} from "@angular/router";
 })
 export class TwoFOtkljucajComponent implements OnInit {
   code: string="";
+  provjera:boolean=false;
+
   constructor(private httpKlijent: HttpClient, private router: Router, ) { }
 
   ngOnInit(): void {
   }
-
   otkljucaj() {
     this.httpKlijent.get(MojConfig.adresa_servera+ "/Autentifikacija/Otkljucaj/" + this.code, MojConfig.http_opcije())
       .subscribe(x=>{
+        this.provjera=true;
         this.router.navigateByUrl("/korisnici");
       });
   }

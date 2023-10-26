@@ -1,0 +1,84 @@
+.background-container {
+  background-image: url('src/assets/pozadina.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.poruke{
+  color:white;
+}
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+
+.naslov {
+  margin-bottom: 10px;
+  font-size: 80px;
+  line-height: 1em;
+  letter-spacing: .3px;
+  color: #8e6100;
+  font-family: 'Brush Script MT', cursive;
+  font-weight: 300;
+  box-sizing: border-box;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.tekst {
+  margin-bottom: 10px;
+  font-family: "Montserrat",Sans-serif;
+  font-style: normal;
+  max-width: 500px;
+}
+.akcije {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+}
+.poruke {
+  color: white;
+}
+.tekst {
+  margin-bottom: 10px;
+  max-width: 500px;
+  white-space: pre-line;
+}
+
+.unos-polje {
+  margin-top: 10px;
+}
+.unos-teksta {
+  margin-top: 20px;
+}
+.unos-teksta textarea {
+  width: 50%;
+  height: 150px;
+}
+.otvoriFormu{
+  margin-bottom: 50px;
+}
+.tekst-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  white-space: pre-line;
+}
