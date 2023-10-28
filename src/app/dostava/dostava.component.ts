@@ -35,41 +35,10 @@ export class DostavaComponent implements OnInit {
   korpaMeniResults: any[] = [];
   ukupnaVrijednostDostave:number;
   formaNova:boolean=false;
-  constructor(
-    private httpKlijent: HttpClient,
-    private sanitizer: DomSanitizer,
-    private userAuthService: UserAuthService,
-    private router: Router
-  ) {}
+  nova:number;
   selectedResult:any;
   loginInformation = AutentifikacijaHelper.getLoginInfo();
-
-
   korisnik: any;
-
-  ngOnInit() {
-    this.dohvatiKategorije();
-
-    this.dohvatiSveMeni();
-
-    this.GetKorisnici();
-
-    this.dohvatiKorpu();
-
-    this.TajKorisnik();
-
-    this.DohvatiDostavu();
-    this.DohvatiKartice();
-  }
-
-  sveKartice:any;
-  DohvatiKartice()
-  {
-    this.httpKlijent.get(MojConfig.adresa_servera+"/Kartica/GetAll")
-      .subscribe(x=>{
-        this.sveKartice=x;
-      })
-  }
 
   zaPopuniti={
     AdresaDostave:'',
@@ -90,7 +59,40 @@ export class DostavaComponent implements OnInit {
     DatumIsteka:'',
     korisnik_id:this.loginInformation.autentifikacijaToken.korisnickiNalogId
   }
+  sviKorisnici:any;
   sveDostave:any;
+  sveKartice:any;
+  mergedData:any = [];
+  kartica_id:number =null;
+  constructor(
+    private httpKlijent: HttpClient,
+    private sanitizer: DomSanitizer,
+    private userAuthService: UserAuthService,
+    private router: Router
+  ) {}
+
+
+  ngOnInit() {
+    this.dohvatiKategorije();
+
+    this.dohvatiSveMeni();
+
+    this.GetKorisnici();
+
+    this.dohvatiKorpu();
+
+    this.TajKorisnik();
+
+    this.DohvatiDostavu();
+    this.DohvatiKartice();
+  }
+  DohvatiKartice()
+  {
+    this.httpKlijent.get(MojConfig.adresa_servera+"/Kartica/GetAll")
+      .subscribe(x=>{
+        this.sveKartice=x;
+      })
+  }
   DohvatiDostavu()
   {
     this.httpKlijent.get(MojConfig.adresa_servera+"/Dostava/GetAll")
@@ -99,30 +101,55 @@ export class DostavaComponent implements OnInit {
       })
 
   }
+  Prikazz() {
+    const oneSecond = 1000;
+    this.sveDostave.sort((a:any, b:any) => (a.datumKreiranja < b.datumKreiranja ? -1 : 1));
 
-Prikazz()
-{
-  for (let i = 0; i < this.sveDostave.length; i++) {
-    const currentItem = this.sveDostave[i];
-    const korisnikId = currentItem.korisnik_id;
 
-    if (!this.aggregatedData[korisnikId]) {
-      this.aggregatedData[korisnikId] = {
-        korisnik:currentItem.korisnik_id,
-        datumKreiranja: currentItem.datumKreiranja,
-        Cijena: currentItem.cijena,
-        Telefon: currentItem.telefonDostave,
-        adresaDostave: currentItem.adresaDostave,
-        kartica_id: currentItem.kartica_id,
-        meni_id: [],
-        kolicina: [],
-      };
+
+    for (let i = 0; i < this.sveDostave.length; i++) {
+      const currentItem = this.sveDostave[i];
+      const datumKreiranja = new Date(currentItem.datumKreiranja).getTime();
+
+      if (i === 0) {
+
+        this.mergedData.push({
+          id: currentItem.id,
+          datumKreiranja: datumKreiranja,
+          korisnik_id: currentItem.korisnik_id,
+          ukupnaCijena: currentItem.cijena,
+          Telefon:currentItem.telefonDostave,
+          adresaDostave:currentItem.adresaDostave,
+          karticno_placanje:currentItem.kartica_id,
+          kolicina: [currentItem.kolicina],
+          meni_id: [currentItem.meni_id],
+        });
+      } else {
+        const previousEntry = this.mergedData[this.mergedData.length - 1];
+        const previousDatumKreiranja = previousEntry.datumKreiranja;
+
+        if (datumKreiranja - previousDatumKreiranja <= oneSecond) {
+          previousEntry.kolicina.push(currentItem.kolicina);
+          previousEntry.meni_id.push(currentItem.meni_id);
+        } else {
+
+          this.mergedData.push({
+            id: currentItem.id,
+            datumKreiranja: datumKreiranja,
+            korisnik_id: currentItem.korisnik_id,
+            ukupnaCijena:currentItem.cijena,
+            Telefon:currentItem.telefonDostave,
+            adresaDostave:currentItem.adresaDostave,
+            karticno_placanje:currentItem.kartica_id,
+            kolicina: [currentItem.kolicina],
+            meni_id: [currentItem.meni_id],
+          });
+        }
+      }
     }
-    this.aggregatedData[korisnikId].meni_id.push(currentItem.meni_id);
-    this.aggregatedData[korisnikId].kolicina.push(currentItem.kolicina);
+
+    console.log(this.mergedData);
   }
-}
-kartica_id:number =null;
 PosaljiDostavu() {
     if (this.selectedPaymentMethod === 'gotovinsko') {
       if (!this.zaPopuniti.AdresaDostave || !this.zaPopuniti.TelefonDostave) {
@@ -266,13 +293,6 @@ PosaljiDostavu() {
       }
     }
   }
-sviKorisnici:any;
-korisnikPrikaz:any;
-aggregatedData: any = {};
-  getAggregatedDataKeys() {
-    return Object.keys(this.aggregatedData);
-  }
-
   ImePrezimeKorisnika(korisnik:any)
   {
     var prikazImena:any;
@@ -309,37 +329,6 @@ aggregatedData: any = {};
 
     return menuDetails;
   }
-  IspisDostavaa()
-{
-
-}
-placanje_kartica:any;
-  Placanje(kartica_id: number) {
-    const kartica = this.sveKartice.find((kartica: any) => kartica.id === kartica_id);
-    console.log(kartica);
-    if (kartica) {
-      if (
-        (kartica.Ime === null || kartica.Ime === '') &&
-        (kartica.Prezime === null || kartica.Prezime === '') &&
-        (kartica.BrojKartice === null || kartica.BrojKartice === '') &&
-        (kartica.TipKartice === null || kartica.TipKartice === '') &&
-        (kartica.AdresaRacuna === null || kartica.AdresaRacuna === '') &&
-        (kartica.Grad === null || kartica.Grad === '') &&
-        (kartica.Drzava === null || kartica.Drzava === '') &&
-        (kartica.PostanskiBroj === null || kartica.PostanskiBroj === '') &&
-        (kartica.Telefon === null || kartica.Telefon === '') &&
-        (kartica.SigurnosniKod === null || kartica.SigurnosniKod === '') &&
-        (kartica.DatumIsteka === null || kartica.DatumIsteka === '')
-      ) {
-        console.log('Gotovinsko placanje');
-        return 'Gotovinsko placanje';
-      }
-    }
-
-    console.log('Karticno placanje');
-    return 'Karticno placanje';
-  }
-
   GetSveKorisnike()
 {
   this.httpKlijent.get(MojConfig.adresa_servera+"/Korisnik/GetAll")
@@ -415,7 +404,7 @@ placanje_kartica:any;
     const sastav = this.sastavKorpe.find((item:any) => item.meni_id === meniId);
     return sastav ? sastav.kolicina : 0;
   }
-  nova:number;
+
   saveEditableQuantity() {
     for (let i=0; i<this.sastavKorpe.length;i++)
     {
@@ -445,7 +434,6 @@ placanje_kartica:any;
       }
     }
   }
-
 Delete(id:any)
 {
   console.log(id);

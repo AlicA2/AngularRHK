@@ -24,42 +24,46 @@
                   </div>
                 </div>
               </div>
-              <h3>KORPA : </h3>
-              <div *ngFor="let result of korpaMeniResults" class="result-container">
-                <h4 class="result-title">Korpa: </h4>
-                <div class="result-item">
-                  <div class="result-property">Id:</div>
-                  <div class="result-value">{{ result.id }}</div>
-                </div>
-                <div class="result-item">
-                  <div class="result-property">Naziv:</div>
-                  <div class="result-value">{{ result.naziv }}</div>
-                </div>
-                <div class="result-item">
-                  <div class="result-property">Opis:</div>
-                  <div class="result-value">{{ result.opis }}</div>
-                </div>
-                <div class="result-item">
-                  <div class="result-property">Cijena:</div>
-                  <div class="result-value">{{ result.cijena }}</div>
-                </div>
-                <div class="result-item">
-                  <div class="result-property">Količina:</div>
-                  <div class="result-value">{{ getSastavKorpaKolicina(result.id) }}</div>
-                </div>
-                <button (click)="openEditModal(result)" (click)="formaNova=true">Promijeni Količinu</button>
-                <button (click)="Delete(result.id)" >Izbriši stavku</button>
-              </div>
-              <div class="result-item">
-                <div class="result-property">Ukupna cijena:</div>
-                <div class="result-value">{{ calculateUkupnaCijena() }}{{"KM"}}</div>
-              </div>
-
-              <button class="button-add" (click)="dostavaForma=true" (click)="TajKorisnik()" >Dostava</button>
             </div>
           </div>
         </div>
       </div>
+
+
+        <div class="izmjena">
+        <h3>KORPA : </h3>
+        <div *ngFor="let result of korpaMeniResults" class="result-container">
+          <h4 class="result-title">Korpa: </h4>
+          <div class="result-item">
+            <div class="result-property">Id:</div>
+            <div class="result-value">{{ result.id }}</div>
+          </div>
+          <div class="result-item">
+            <div class="result-property">Naziv:</div>
+            <div class="result-value">{{ result.naziv }}</div>
+          </div>
+          <div class="result-item">
+            <div class="result-property">Opis:</div>
+            <div class="result-value">{{ result.opis }}</div>
+          </div>
+          <div class="result-item">
+            <div class="result-property">Cijena:</div>
+            <div class="result-value">{{ result.cijena }}</div>
+          </div>
+          <div class="result-item">
+            <div class="result-property">Količina:</div>
+            <div class="result-value">{{ getSastavKorpaKolicina(result.id) }}</div>
+          </div>
+          <button (click)="openEditModal(result)" (click)="formaNova=true">Promijeni Količinu</button>
+          <button (click)="Delete(result.id)" >Izbriši stavku</button>
+        </div>
+        <div class="result-item">
+          <div class="result-property">Ukupna cijena:</div>
+          <div class="result-value">{{ calculateUkupnaCijena() }}{{"KM"}}</div>
+        </div>
+        <button class="button-add" (click)="dostavaForma=true" (click)="TajKorisnik()" >Dostava</button>
+        </div>
+
 
 
       <div class="modal fade show" id="exampleModalLive" *ngIf="formaNova" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
@@ -209,26 +213,25 @@
         <h3>Dostava</h3>
         <button (click)="DohvatiDostavu()" (click)="GetSveKorisnike()" (click)="DohvatiKartice()" >Dohvati dostave</button>
         <button (click)="Prikazz()">Prikaz na stranici</button>
-
-        <div *ngIf="aggregatedData" id="aggregated-data-container">
-          <h4>Dostave : </h4>
-          <div *ngFor="let key of getAggregatedDataKeys()" class="data-entry">
-            <div class="data-element header">Broj dostave: {{ key }}</div>
-            <div class="data-element ">KORISNIK: {{ ImePrezimeKorisnika(aggregatedData[key].korisnik) }}</div>
-            <div class="data-element">Datum Kreiranja: {{ aggregatedData[key].datumKreiranja }}</div>
-            <div class="data-element cijena">Ukupna cijena: {{ aggregatedData[key].Cijena }}</div>
-            <div class="data-element telefon">Telefon: {{ aggregatedData[key].Telefon }}</div>
-            <div class="data-element adresa-dostave">Adresa Dostave: {{ aggregatedData[key].adresaDostave }}</div>
-            <div class="data-element kartica">Placanje: {{ Placanje(aggregatedData[key].kartica_id) }}</div>
+        <div *ngIf="mergedData" id="aggregated-data-container">
+          <h4>Dostave :</h4>
+          <div *ngFor="let entry of mergedData" class="data-entry">
+            <div class="data-element header">Broj dostave: {{ entry.id }}</div>
+            <div class="data-element ">KORISNIK: {{ ImePrezimeKorisnika(entry.korisnik_id) }}</div>
+            <div class="data-element">Datum Kreiranja: {{ entry.datumKreiranja }}</div>
+            <div class="data-element cijena">Ukupna cijena: {{ entry.ukupnaCijena }}</div>
+            <div class="data-element telefon">Telefon: {{ entry.Telefon }}</div>
+            <div class="data-element adresa-dostave">Adresa Dostave: {{ entry.adresaDostave }}</div>
+            <div class="data-element kartica">Kartica: {{  entry.karticno_placanje }}</div>
             <div class="data-element">Meni:</div>
             <ul>
-              <li *ngFor="let menuDetail of Poziv(aggregatedData[key].meni_id, aggregatedData[key].kolicina)">
+              <li *ngFor="let menuDetail of Poziv(entry.meni_id, entry.kolicina)">
                 {{ menuDetail.Name }} ({{ menuDetail.Quantity }}x) - {{ menuDetail.Price }} KM
                 <p>{{ menuDetail.Description }}</p>
               </li>
             </ul>
           </div>
-          </div>
+        </div>
         </div>
 
 
