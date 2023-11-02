@@ -30,49 +30,52 @@
       </div>
 
 
-        <div class="izmjena">
-        <h3>KORPA : </h3>
-        <div *ngFor="let result of korpaMeniResults" class="result-container">
-          <h4 class="result-title">Korpa: </h4>
-          <div class="result-item">
-            <div class="result-property">Id:</div>
-            <div class="result-value">{{ result.id }}</div>
+        <div class="izmjena" style="background-color: #e8f7e3;">
+          <h3>KORPA :</h3>
+          <div *ngFor="let result of korpaMeniResults" class="result-container">
+            <h4 class="result-title">Korpa:</h4>
+            <div class="result-item">
+              <div class="result-property">Id:</div>
+              <div class="result-value">{{ result.id }}</div>
+            </div>
+            <div class="result-item">
+              <div class="result-property">Naziv:</div>
+              <div class="result-value">{{ result.naziv }}</div>
+            </div>
+            <div class="result-item">
+              <div class="result-property">Opis:</div>
+              <div class="result-value">{{ result.opis }}</div>
+            </div>
+            <div class="result-item">
+              <div class="result-property">Cijena:</div>
+              <div class="result-value">{{ result.cijena }}</div>
+            </div>
+            <div class="result-item">
+              <div class="result-property">Količina:</div>
+              <div class="result-value">{{ getSastavKorpaKolicina(result.id) }}</div>
+            </div>
+            <div class="button-container">
+              <button class="yellow-button" (click)="openEditModal(result)" (click)="formaNova=true">Promijeni Količinu</button>
+              <button class="red-button" (click)="Delete(result.id)">Izbriši stavku</button>
+            </div>
           </div>
           <div class="result-item">
-            <div class="result-property">Naziv:</div>
-            <div class="result-value">{{ result.naziv }}</div>
+            <div class="result-property">Ukupna cijena:</div>
+            <div class="cijenaZaSve">{{ calculateUkupnaCijena() }}{{"KM"}}</div>
           </div>
-          <div class="result-item">
-            <div class="result-property">Opis:</div>
-            <div class="result-value">{{ result.opis }}</div>
-          </div>
-          <div class="result-item">
-            <div class="result-property">Cijena:</div>
-            <div class="result-value">{{ result.cijena }}</div>
-          </div>
-          <div class="result-item">
-            <div class="result-property">Količina:</div>
-            <div class="result-value">{{ getSastavKorpaKolicina(result.id) }}</div>
-          </div>
-          <button (click)="openEditModal(result)" (click)="formaNova=true">Promijeni Količinu</button>
-          <button (click)="Delete(result.id)" >Izbriši stavku</button>
-        </div>
-        <div class="result-item">
-          <div class="result-property">Ukupna cijena:</div>
-          <div class="result-value">{{ calculateUkupnaCijena() }}{{"KM"}}</div>
-        </div>
-        <button class="button-add" (click)="dostavaForma=true" (click)="TajKorisnik()" >Dostava</button>
+          <button class="button-add" (click)="dostavaForma=true" (click)="TajKorisnik()" >Dostava</button>
         </div>
 
 
 
-      <div class="modal fade show" id="exampleModalLive" *ngIf="formaNova" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLiveLabel">Editovanje količine</h5>
-              <button type="button" class="custom-close-button" aria-label="Close" (click)="formaNova = false">
-                <span>X</span>
+
+        <div class="modal fade show d-flex align-items-center justify-content-center" id="exampleModalLive" *ngIf="formaNova" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+          <div class="modal-dialog custom-modal-dialog">
+            <div class="modal-content custom-modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLiveLabel">Editovanje količine</h5>
+                <button type="button" class="custom-close-button" aria-label="Close" (click)="formaNova = false">
+                  <span>X</span>
               </button>
             </div>
             <div class="modal-body">
@@ -94,7 +97,7 @@
               </div>
               <div class="result-item">
                 <div class="result-property">Količina:</div>
-                <input type="number" [(ngModel)]="editableQuantity" />
+                <input class="kolicina" type="number" [(ngModel)]="editableQuantity" />
               </div>
 
             </div>
@@ -108,13 +111,15 @@
         </div>
       </div>
 
+
       <div class="modal fade show" *ngIf="dostavaForma" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+        <div class="modal-dialog" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content" style="background-color: lightyellow;">
             <div class="modal-header">
               <h5 class="modal-title">Dostava</h5>
               <button type="button" class="custom-close-button" aria-label="Close" (click)="dostavaForma = false">
-                <span>X</span>
+                <span class="custom-close-button-text">X</span>
               </button>
             </div>
             <div class="modal-body">
@@ -151,70 +156,80 @@
                   <option selected value="gotovinsko">Gotovinsko placanje</option>
                 </select>
                 <div id="paymentForm" *ngIf="selectedPaymentMethod=='karticno'">
-                  <label for="paymentMethod">Tip kartice:</label>
-                  <select [(ngModel)]="kartica.TipKartice" id="paymentMethod" name="paymentMethod">
-                    <option value="creditcard">Kreditna kartica</option>
-                    <option value="debitcard">Debitna kartica</option>
-                  </select>
-                  <br>
-                  <label for="cardNumber">Broj kartice:</label>
-                  <input [(ngModel)]="kartica.BrojKartice" type="text" id="cardNumber" name="Broj kartice">
-                  <br>
-                  <br>
-                  <label for="datumIsteka">Datum isteka</label>
-                  <input [(ngModel)]="kartica.DatumIsteka"type="text" id="datumIsteka" name="Datum isteka">
-                  <br>
-                  <br>
-                  <label for="sigurnosnikod">Sigurnosni kod</label>
-                  <input [(ngModel)]="kartica.SigurnosniKod" type="text" id="sigurnosnikod" name="Sigurnosni kod">
-                  <br>
-                  <label for="ime">Ime</label>
-                  <input [(ngModel)]="kartica.Ime" type="text" id="ime" name="Ime">
-                  <br>
-                  <label for="prezime">Prezime</label>
-                  <input [(ngModel)]="kartica.Prezime" type="text" id="prezime" name="Prezime">
-                  <br>
-                  <br>
-                  <label for="adresaRacuna">Adresa računa</label>
-                  <input [(ngModel)]="kartica.AdresaRacuna" type="text" id="adresaRacuna" name="Adresa računa">
-                  <br>
-                  <br>
-                  <label for="grad">Grad</label>
-                  <input [(ngModel)]="kartica.Grad" type="text" id="grad" name="Grad">
-                  <br>
-                  <br>
-                  <label for="drzava">Država</label>
-                  <input [(ngModel)]="kartica.Drzava" type="text" id="drzava" name="Država">
-                  <br>
-                  <br>
-                  <label for="telefon">Telefon</label>
-                  <input [(ngModel)]="kartica.Telefon" type="text" id="telefon" name="Telefon">
-                  <br>
-                  <br>
-                  <label for="postanskibroj">Poštanski broj</label>
-                  <input [(ngModel)]="kartica.PostanskiBroj" type="text" id="postanskibroj" name="Poštanski broj">
-                  <br>
+                  <div class="mb-3">
+                    <label for="paymentMethod">Tip kartice:</label>
+                    <select [(ngModel)]="kartica.TipKartice" id="paymentMethod" name="paymentMethod" style="display: block;">
+                      <option value="creditcard">Kreditna kartica</option>
+                      <option value="debitcard">Debitna kartica</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="cardNumber">Broj kartice:</label>
+                    <input [(ngModel)]="kartica.BrojKartice" type="text" id="cardNumber" name="Broj kartice" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="datumIsteka">Datum isteka</label>
+                    <input [(ngModel)]="kartica.DatumIsteka" type="text" id="datumIsteka" name="Datum isteka" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="sigurnosnikod">Sigurnosni kod</label>
+                    <input [(ngModel)]="kartica.SigurnosniKod" type="text" id="sigurnosnikod" name="Sigurnosni kod" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="ime">Ime</label>
+                    <input [(ngModel)]="kartica.Ime" type="text" id="ime" name="Ime" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="prezime">Prezime</label>
+                    <input [(ngModel)]="kartica.Prezime" type="text" id="prezime" name="Prezime" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="adresaRacuna">Adresa računa</label>
+                    <input [(ngModel)]="kartica.AdresaRacuna" type="text" id="adresaRacuna" name="Adresa računa" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="grad">Grad</label>
+                    <input [(ngModel)]="kartica.Grad" type="text" id="grad" name="Grad" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="drzava">Država</label>
+                    <input [(ngModel)]="kartica.Drzava" type="text" id="drzava" name="Država" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="telefon">Telefon</label>
+                    <input [(ngModel)]="kartica.Telefon" type="text" id="telefon" name="Telefon" style="display: block;">
+                  </div>
+                  <div class="mb-3">
+                    <label for="postanskibroj">Poštanski broj</label>
+                    <input [(ngModel)]="kartica.PostanskiBroj" type="text" id="postanskibroj" name="Poštanski broj" style="display: block;">
+                  </div>
                 </div>
+
               </div>
 
 
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="dostavaForma = false">Close</button>
-              <button type="button" class="btn btn-primary" (click)="PosaljiDostavu()">Spasi</button>
+              <button type="button" class="btn btn-secondary" id="closeButton" (click)="dostavaForma = false">Close</button>
+              <button type="button" class="btn btn-primary" id="spasiButton" (click)="PosaljiDostavu()" style="margin-left: 10px;">Spasi</button>
             </div>
 
           </div>
         </div>
+          </div>
       </div>
+
+
+
+
       </div>
       <div *ngIf="loginInformation.isPremisijaAdmin">
-        <h3>Dostava</h3>
-        <button (click)="DohvatiDostavu()" (click)="GetSveKorisnike()" (click)="DohvatiKartice()" >Dohvati dostave</button>
-        <button (click)="Prikazz()">Prikaz na stranici</button>
+        <h3 id="naslov1">Dostava</h3>
+        <button class="dohvati" (click)="DohvatiDostavu()" (click)="GetSveKorisnike()" (click)="DohvatiKartice()" >Dohvati dostave</button>
+        <button class="prikazi" (click)="Prikazz()">Prikaz na stranici</button>
         <div *ngIf="mergedData" id="aggregated-data-container">
-          <h4>Dostave :</h4>
+          <h4 id="naslov2">Dostave :</h4>
           <div *ngFor="let entry of mergedData" class="data-entry">
             <div class="data-element header">Broj dostave: {{ entry.id }}</div>
             <div class="data-element ">KORISNIK: {{ ImePrezimeKorisnika(entry.korisnik_id) }}</div>

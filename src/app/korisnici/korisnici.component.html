@@ -1,10 +1,13 @@
+<div class="background-container"></div>
+
+<div class="sve">
 <div>
   <input [(ngModel)] = "filter_ime_prezime" type="checkbox"> Filter by <span style="font-weight: bold">Ime / prezime</span> <br>
   <input [(ngModel)]="ime_prezime" [disabled]="!filter_ime_prezime"><br>
   <hr>
 </div>
 
-<div class="container">
+<div class="tabela">
   <table class="table table-bordered mt-4">
     <thead>
     <th>ID</th>
@@ -34,4 +37,4 @@
   </table>
 
 </div>
-
+</div>
