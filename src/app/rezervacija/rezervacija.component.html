@@ -1,0 +1,47 @@
+<div>
+  <h1>Rezervacija</h1>
+  <div>
+    <label for="Ime">Ime:</label>
+    <input type="text" id="Ime" [(ngModel)]="rezervacija.Ime">
+  </div>
+  <div>
+    <label for="Prezime">Prezime:</label>
+    <input type="text" id="Prezime" [(ngModel)]="rezervacija.Prezime">
+  </div>
+  <div>
+    <label for="DatumRezervacije">Datum Rezervacije:</label>
+    <input type="date" id="DatumRezervacije" [min]="minDate" [(ngModel)]="rezervacija.DatumRezervacije">
+  </div>
+  <div>
+    <label for="Vrijeme">Vrijeme:</label>
+    <select id="Vrijeme" (change)="onTimeChange($event)" [(ngModel)]="rezervacija.Vrijeme">
+      <option *ngFor="let time of timeOptions" [value]="time">{{ time }}</option>
+    </select>
+  </div>
+  <div>
+    <label for="BrojOsoba">Broj Osoba:</label>
+    <select id="BrojOsoba" [(ngModel)]="rezervacija.BrojOsoba">
+      <option value="2">2</option>
+      <option value="4">4</option>
+      <option value="6">6+</option>
+    </select>
+  </div>
+
+  <button (click)="Slanje()">Save</button>
+</div>
+
+<div *ngIf="sveRezervacije && sveRezervacije.length > 0">
+  <h2>Postojeće rezervacije</h2>
+  <ul>
+    <li *ngFor="let rezervacija of sveRezervacije">
+      <p>Ime: {{ rezervacija.ime }}</p>
+      <p>Prezime: {{ rezervacija.prezime }}</p>
+      <p>Datum Rezervacije: {{ rezervacija.datumRezervacije }}</p>
+      <p>Vrijeme: {{ rezervacija.vrijeme }}</p>
+      <p>Broj Osoba: {{ rezervacija.brojOsoba }}</p>
+      <p>Rezervisano: {{ rezervacija.rezervisano }}</p>
+      <button (click)="updateRezervisano(rezervacija.id, true)">Rezervacija potvrđena</button>
+    </li>
+  </ul>
+</div>
+

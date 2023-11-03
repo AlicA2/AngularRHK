@@ -24,6 +24,7 @@ import { ForumComponent } from './forum/forum.component';
 import { ForumOdgovoriComponent } from './forum-odgovori/forum-odgovori.component';
 import { DostavaComponent } from './dostava/dostava.component';
 import { ONamaComponent} from './o-nama/onama.component';
+import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { ONamaComponent} from './o-nama/onama.component';
     ForumComponent,
     ForumOdgovoriComponent,
     DostavaComponent,
-    ONamaComponent
+    ONamaComponent,
+    RezervacijaComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,8 @@ import { ONamaComponent} from './o-nama/onama.component';
       {path: "forum", component:ForumComponent},
       {path: "forum-odgovor/:forumid", component: ForumOdgovoriComponent},
       {path: "dostava", component: DostavaComponent},
-      {path: "o-nama", component: ONamaComponent}
+      {path: "o-nama", component: ONamaComponent},
+      {path: "rezervacija", component: RezervacijaComponent},
 
     ])
   ],
