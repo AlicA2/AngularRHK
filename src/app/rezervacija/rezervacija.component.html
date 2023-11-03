@@ -1,3 +1,4 @@
+<div *ngIf="this.loginInformation.isPremisijaKorisnik">
 <div>
   <h1>Rezervacija</h1>
   <div>
@@ -39,9 +40,31 @@
       <p>Datum Rezervacije: {{ rezervacija.datumRezervacije }}</p>
       <p>Vrijeme: {{ rezervacija.vrijeme }}</p>
       <p>Broj Osoba: {{ rezervacija.brojOsoba }}</p>
-      <p>Rezervisano: {{ rezervacija.rezervisano }}</p>
-      <button (click)="updateRezervisano(rezervacija.id, true)">Rezervacija potvrđena</button>
+      <p>Status rezervacije: {{ rezervacija.rezervisano }}</p>
     </li>
   </ul>
 </div>
+</div>
 
+
+
+
+
+<div *ngIf="this.loginInformation.isPremisijaAdmin">
+
+  <div *ngIf="sveRezervacije && sveRezervacije.length > 0">
+    <h2>Postojeće rezervacije</h2>
+    <ul>
+      <li *ngFor="let rezervacija of sveRezervacije">
+        <p>Ime: {{ rezervacija.ime }}</p>
+        <p>Prezime: {{ rezervacija.prezime }}</p>
+        <p>Datum Rezervacije: {{ rezervacija.datumRezervacije }}</p>
+        <p>Vrijeme: {{ rezervacija.vrijeme }}</p>
+        <p>Broj Osoba: {{ rezervacija.brojOsoba }}</p>
+        <p>Status rezervacije: {{ rezervacija.rezervisano }}</p>
+        <button (click)="updateRezervisano(rezervacija.id, 'Potvrđena')">Rezervacija potvrđena</button>
+        <button (click)="updateRezervisano(rezervacija.id, 'Odbijena')">Rezervacija odbijena</button>
+      </li>
+    </ul>
+  </div>
+</div>

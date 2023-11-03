@@ -46,7 +46,8 @@ export class RezervacijaComponent implements OnInit {
     DatumRezervacije: '',
     Vrijeme: '',
     BrojOsoba: '',
-    Rezervisano:false
+    Rezervisano:'',
+    korisnik_id:this.loginInformation.autentifikacijaToken.korisnickiNalogId
   };
   sveRezervacije:any;
   DohvatiRezervacije()
@@ -58,6 +59,7 @@ export class RezervacijaComponent implements OnInit {
   }
 Slanje()
 {
+  this.rezervacija.Rezervisano = 'Na čekanju';
   const datumRezervacije = new Date(this.rezervacija.DatumRezervacije);
   const timeParts = this.rezervacija.Vrijeme.split(':');
   const hours = parseInt(timeParts[0]);
@@ -74,23 +76,33 @@ Slanje()
 this.httpKlijent.post(MojConfig.adresa_servera+"/Rezervacija/DodajRezervaciju",this.rezervacija)
   .subscribe(x=>{
     porukaSuccess("Uspjesno");
+    this.DohvatiRezervacije();
   },y=>{
     porukaError("Greska");
   })
 }
 
-  updateRezervisano(id: number, newValue: boolean) {
-    console.log(id+" "+newValue);
-    this.httpKlijent.put(MojConfig.adresa_servera+"/Rezervacija/UpdateRezervisano/"+id,newValue)
+  updateRezervisano(id: number, newValue: string) {
+    console.log(id + " " + newValue);
+    const updateData = {
+      Rezervisano: newValue
+    };
+    this.httpKlijent.put(MojConfig.adresa_servera + "/Rezervacija/UpdateRezervisano/" + id, updateData)
       .subscribe(
         (response) => {
-          porukaSuccess(`Rezervisano status updateovan na ${newValue}`);
+          if (newValue === 'Potvrđena') {
+            porukaSuccess(`Rezervisano status updateovan na Potvrđeno`);
+          } else if (newValue === 'Odbijena') {
+            porukaSuccess(`Rezervacija je odbijena`);
+          }
+          this.DohvatiRezervacije();
         },
         (error) => {
           porukaError(`Error updateovanje Rezervisanog statusa: ${error}`);
         }
       );
   }
+
 
 
 }
