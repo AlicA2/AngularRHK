@@ -44,12 +44,7 @@
   font-style: normal;
   max-width: 500px;
 }
-.akcije {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-top: 40px;
-}
+
 .poruke {
   color: white;
 }
@@ -60,10 +55,16 @@
 }
 
 .unos-polje {
-  margin-top: 10px;
+  width: 100%;
+  padding: 5px;
+  margin: 2px 0;
+  text-align: center;
 }
 .unos-teksta {
   margin-top: 20px;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
 }
 .unos-teksta textarea {
   width: 50%;
@@ -81,4 +82,59 @@
   max-width: 500px;
   margin: 0 auto;
   white-space: pre-line;
+}
+.contact-container{
+  margin-top: 30px;
+}
+.dodajInformacije{
+  background-color: cadetblue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.dodajInformacije:hover{
+  background-color: dodgerblue;
+}
+.input-container label {
+  margin-bottom: 5px;
+}
+
+.buttonSpasi {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonSpasi:hover {
+  background-color: darkgreen;
+}
+.buttonZatvori {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonZatvori:hover {
+  background-color: darkred;
+}
+.buttoni {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.buttoni button {
+  margin: 0 10px;
 }

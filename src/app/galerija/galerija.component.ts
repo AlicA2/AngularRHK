@@ -76,18 +76,14 @@ export class GalerijaComponent {
       .delete(MojConfig.adresa_servera + `/Galerija/DeleteSlika/${this.firstImageId + index}`, { responseType: 'text' })
       .subscribe(
         (response: string) => {
-          console.log(response); // Log the response from the server
+          console.log(response);
           if (response === 'Slika je uspješno obrisana.') {
-            // If the server response is successful, reload the page
-            location.reload(); // This will refresh the current page
+            location.reload();
           } else {
-            // Handle any other response from the server (e.g., error messages)
-            // You can display an error message or perform an appropriate action
             console.error('Error:', response);
           }
         },
         (error) => {
-          // Handle HTTP errors here
           console.error('HTTP Error:', error);
         }
       );

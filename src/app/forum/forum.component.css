@@ -10,3 +10,55 @@
   height: 100%;
   z-index: -1;
 }
+.buttonSpasi {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonSpasi:hover {
+  background-color: darkgreen;
+}
+.buttonZatvori {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonZatvori:hover {
+  background-color: darkred;
+}
+.btn-close {
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn-close:hover {
+  background-color: red;
+  color: white;
+}
+.pozadinskiOkvir {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.pozadinskiOkvir p {
+  color: white;
+  font-size: 16px;
+}
+
+.pozadinskiOkvir h3 {
+  color: #ffcc00;
+}
+

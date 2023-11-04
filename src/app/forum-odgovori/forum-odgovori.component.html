@@ -1,11 +1,11 @@
 <div class="background-container"></div>
 
 <div *ngIf="forumOdgovori!=null">
-  <div class="w-100 bg-success text-warning m-2 p-2" >
+  <div class="pozadinskiOkvir">
     <h3> Autor: {{forumOdgovori.kreator}}</h3>
-    <p>Pitanje: {{forumOdgovori.tema}}</p>
-    <p > Sadrzaj: {{forumOdgovori.pitanje}} ?</p>
-    <p>Datum: {{forumOdgovori.datum_kreiranja}}</p>
+    <p><u><i>Pitanje:</i></u> {{forumOdgovori.tema}}</p>
+    <p><u><i>Sadrzaj:</i></u> {{forumOdgovori.pitanje}} ?</p>
+    <p><u><i>Datum:</i></u> {{forumOdgovori.datum_kreiranja}}</p>
     <button class="btn btn-warning" (click)="odgovori()">Odgovori</button>
   </div>
   <div class="w-100 bg-secondary m-2 p-2 text-white" *ngFor="let o of forumOdgovori.forum_odgovori">
@@ -35,8 +35,8 @@
 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="forumOdgovorObject=null">Close</button>
-            <button type="button" class="btn btn-primary" (click)="dodajForumOdgovor()">Dodaj</button>
+            <button type="button" class="buttonZatvori" (click)="forumOdgovorObject=null">Close</button>
+            <button type="button" class="buttonSpasi"  (click)="dodajForumOdgovor()">Dodaj</button>
           </div>
         </div>
       </div>

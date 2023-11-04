@@ -24,12 +24,12 @@
 
   <div id="poruke-hub-admin " class="mt-4" >
     <div *ngFor="let t of  filtrirano()" >
-      <div class="w-100 bg-success text-warning m-2 p-2 text-brightng ">
+      <div class="pozadinskiOkvir">
         <h3> Autor: {{t.autor}}</h3>
-        <p>Pitanje: {{t.tema}}</p>
-        <p > Sadrzaj: {{t.pitanje}} ?</p>
-        <p>Datum: {{t.datum_kreiranja}}</p>
-        <button class="btn btn-warning me-2 text-success"  (click)="otvoriDiskujiu(t)">Otvori diskusiju</button>
+        <p><u><i>Pitanje:</i></u> {{t.tema}}</p>
+        <p><u><i>Sadržaj:</i></u> {{t.pitanje}} ?</p>
+        <p><u><i>Datum:</i></u> {{t.datum_kreiranja}}</p>
+        <button class="btn btn-warning"  (click)="otvoriDiskujiu(t)">Otvori diskusiju</button>
         <button class="btn btn-danger " *ngIf="loginInfo().isPremisijaAdmin" (click)="obrsisiTemu(t)">Ukloni</button>
       </div>
     </div>
@@ -54,8 +54,8 @@
           <textarea class="form-control" rows="4" [(ngModel)]="temaObject.pitanje">
           </textarea>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="temaObject=null">Close</button>
-            <button type="button" class="btn btn-primary" (click)="dodajTemu()">Dodaj</button>
+            <button type="button" class="buttonZatvori" (click)="temaObject=null">Close</button>
+            <button type="button" class="buttonSpasi" (click)="dodajTemu()">Dodaj</button>
           </div>
         </div>
       </div>

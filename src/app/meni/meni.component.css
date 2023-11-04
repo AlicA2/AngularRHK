@@ -1,24 +1,9 @@
 
-  .button-delete
-  {
-    background-color: red;
-    color: white;
-    padding: 10px 20px;
-    border: 2px solid #000;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: background-color 0.7s ease;
-  }
   .button-add:hover
   {
     background-color:  #e4b95b;
     color: white;
     border-color: #333;
-  }
-
-  .modal-dialog
-  {
-
   }
   form {
     margin: 20px auto;
@@ -172,42 +157,6 @@
     border-radius: 3px;
   }
 
-  button {
-    background: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #0056b3;
-  }
-  .btn-close {
-    background: none;
-    border: none;
-    color: black;
-    font-size: 24px;
-    line-height: 1;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 0;
-    z-index: 9999;
-  }
-
-
-  .btn-primary {
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
   .slika-jela-container {
     width: 200px;
     height: 150px;
@@ -220,16 +169,7 @@
   .tekst-jela {
     overflow: hidden;
   }
-  .custom-close-button {
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-    line-height: 2;
-    width: 30px;
-    color: #000;
-    padding: 0;
-    cursor: pointer;
-  }
+
   .siva-pozadina {
     background-color: gray;
     color: white;
@@ -241,7 +181,69 @@
   .no-scroll {
     overflow: hidden;
   }
-  .siva-pozadina {
-    background-color: gray;
+
+  .buttonZatvori {
+    background-color: red;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .buttonZatvori:hover {
+    background-color: darkred;
+  }
+  .custom-close-button {
+    color: black;
+    font-size: 13px;
+    line-height: 2;
+    width: 30px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+  }
+
+  .custom-close-button:hover {
+    background-color: darkred;
+    color:white;
+  }
+  .buttonSpasi {
+    background-color: forestgreen;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .buttonSpasi:hover {
+    background-color: darkgreen;
+  }
+.buttonSljedeca{
+  background-color: cadetblue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.buttonSljedeca:hover{
+  background-color: dodgerblue;
+}
+  .button-delete {
+    background-color: red;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-delete:hover {
+    background-color: darkred;
   }

@@ -11,8 +11,8 @@
               <div class="tekst">{{ poruka.text }}</div>
             </div>
             <div class="akcije">
-              <button class="btn btn-primary" (click)="urediPoruku(poruka)">Uredi</button>
-              <button class="btn btn-danger" (click)="obrisiPoruku(poruka.id)">Obriši</button>
+              <button class="buttonSpasi" style="margin-right: 10px" (click)="urediPoruku(poruka)">Uredi</button>
+              <button class="buttonZatvori" style="margin-left: 10px" (click)="obrisiPoruku(poruka.id)">Obriši</button>
             </div>
           </td>
         </tr>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="otvoriFormu">
-  <button (click)="otvoriFormu()">Dodaj informacije</button>
+  <button class="dodajInformacije" (click)="otvoriFormu()">Dodaj informacije</button>
   <div *ngIf="formaVidljiva" class="unos-forma">
     <div class="unos-polje">
       <input type="text" [(ngModel)]="naslov" placeholder="Unesite naslov">
@@ -29,8 +29,10 @@
     <div class="unos-polje unos-teksta">
       <textarea [(ngModel)]="tekst" placeholder="Unesite tekst"></textarea>
     </div>
-    <button (click)="spasiTekst()">Spasi</button>
-    <button (click)="odustani()">Odustani</button>
+    <div class="buttoni">
+    <button class="buttonSpasi" (click)="spasiTekst()">Spasi</button>
+    <button class="buttonZatvori" (click)="odustani()">Odustani</button>
+    </div>
   </div>
   </div>
   <div *ngIf="formaUredivanja">
@@ -40,8 +42,10 @@
     <div class="unos-polje unos-teksta">
       <textarea [(ngModel)]="tekst" placeholder="Unesite novi tekst"></textarea>
     </div>
-    <button (click)="spasiUredjenuPoruku()">Spasi</button>
-    <button (click)="odustaniUredjivanje()">Odustani</button>
+    <div class="buttoni">
+    <button class="buttonSpasi" (click)="spasiUredjenuPoruku()">Spasi</button>
+    <button class="buttonZatvori" (click)="odustaniUredjivanje()">Odustani</button>
+      </div>
   </div>
 </div>
 

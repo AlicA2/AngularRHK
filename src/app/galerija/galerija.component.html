@@ -3,7 +3,6 @@
 
 <div class="background-container"></div>
 
-<!-- Main content container -->
 <div class="d-flex justify-content-center">
   <h1 class="gallery-title">Dobrodošli u našu galeriju. Nadamo se da ćete uživati u pogledu koji Vam nudimo.</h1>
   <div class="gallery">
@@ -36,7 +35,6 @@
 <div *ngIf="this.loginInformation.isPremisijaAdmin" class="contact-container2">
   <div class="background-container"></div>
 
-  <!-- Main content container -->
   <div class="d-flex justify-content-center">
     <h1 class="galerija-title2">Uredite vašu galeriju.</h1>
     <input class="form-control" #slikaInput id="slika-input" [(ngModel)]="slikainput" type="file" accept="image/*" (change)="Preview()" />

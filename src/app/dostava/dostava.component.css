@@ -120,59 +120,53 @@
   padding: 20px;
   border: 1px solid #ccc;
   margin-top: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #aggregated-data-container h4 {
   font-size: 20px;
   margin-bottom: 10px;
 }
-#naslov1, #naslov2{
-  color:white;
+
+#naslov2{
+  color:black;
+}
+#naslov1 {
+  text-align: center;
+  color: white;
+  position: absolute;
+  margin-top: 60px;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 20px;
+}
+.sadržaj {
+  margin-top: 150px;
 }
 .data-entry {
   border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #fff;
+  background-color:white;
 }
 
-/* Style specific data elements */
 .data-entry .header {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-/* Add spacing and border to the JSON data */
 .data-entry .json-data {
   border: 1px solid #ddd;
   padding: 10px;
   white-space: pre-line;
 }
 
-/* Add some spacing to individual data elements */
 .data-entry .data-element {
   margin-bottom: 5px;
-}
-
-/* Style specific elements */
-.data-entry .kartica {
-  color: blue;
-  font-weight: bold;
-}
-
-.data-entry .cijena {
-  color: green;
-  font-weight: bold;
-}
-
-.data-entry .telefon {
-  color: #3333cc;
-  font-weight: bold;
-}
-
-.data-entry .adresa-dostave {
-  color: #ff6600;
-  font-weight: bold;
 }
 .izmjena {
   background-color: #e8f7e3;
@@ -224,16 +218,31 @@
   padding-left: 12px;
   padding-right: 12px;
 }
-.dohvati{
-  background-color: goldenrod;
-  color: black;
-  padding-left: 12px;
-  padding-right: 12px;
+.dohvati {
+  background-color: #e4b95b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 20px;
 }
-.prikazi{
-  background-color: greenyellow;
-  padding-left: 12px;
-  padding-right: 12px;
+.dohvati:hover {
+  background-color: #cc9f50;
+}
+.prikazi {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.prikazi:hover {
+  background-color: #4aaf4d;
 }
 .red-button {
   background-color: darkred;
@@ -296,8 +305,9 @@
 }
 .custom-close-button {
   background-color: transparent;
-  width: 40px;
-  padding: 5px;
+  width: 28px;
+  height: 33px;
+  margin-top: 10px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -305,11 +315,11 @@
 
 .custom-close-button:hover {
   background-color: red;
+  color: white;
 }
 
 .custom-close-button-text {
-  color: black;
-  font-size: 24px;
+  font-size: 20px;
 }
 .moj-background {
   background-color: lightgrey;
@@ -324,4 +334,49 @@
   background-color: green;
   color: white;
   padding:10px;
+}
+.kompletForma{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.buttonSpasi {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonSpasi:hover {
+  background-color: darkgreen;
+}
+.buttonZatvori {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonZatvori:hover {
+  background-color: darkred;
+}
+.modal-title{
+  margin-top: 20px;
+}
+.data-element::before {
+  content: "•";
+  margin-right: 5px;
+  color: red;
 }

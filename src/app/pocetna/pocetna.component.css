@@ -33,7 +33,7 @@
   color: white;
   font-size: 75px;
   position: relative;
-  font-family: 'Brush Script MT', cursive; /* Ovdje koristimo ime fonta kao definirano u @font-face pravilu */
+  font-family: 'Brush Script MT', cursive;
   font-weight: 400;
   letter-spacing: 4px;
 

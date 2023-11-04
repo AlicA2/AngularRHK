@@ -1,11 +1,8 @@
-
-
-/* login.component.css */
 .d-flex.justify-content-center {
-  background-image: url('src/assets/slikaPocetna.png'); /* Putanja do slike u assets direktorijumu */
-  background-size: cover; /* Opciono: podešava veličinu slike tako da pokrije cijeli div */
-  background-repeat: no-repeat; /* Opciono: sprečava ponavljanje slike */
-  background-attachment: fixed; /* Opciono: fiksira pozadinu pri skroliranju */
+  background-image: url('src/assets/slikaPocetna.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   position: fixed;
 
   top: 0;
@@ -18,13 +15,12 @@
   color: white;
 }
 
-/* Postavljanje bijele boje teksta za input elemente */
 .form-control {
   color: black;
 }
 .d-flex.justify-content-center {
-  margin-top: 50px; /* Prilagodite vrednost prema vašim potrebama */
+  margin-top: 50px;
 }
 form {
-  margin-bottom: 300px; /* Prilagodite vrednost prema vašim potrebama */
+  margin-bottom: 300px;
 }

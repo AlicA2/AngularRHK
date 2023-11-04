@@ -2,7 +2,7 @@
 
 <h1 class="header">MENI</h1>
 <div *ngIf="this.loginInformation.isPremisijaAdmin">
-  <button class="button-add" style="margin-right: auto; width: 10%; margin-top: 10px" (click)="otvoriFormu = true">Dodaj jelo/piće</button>
+  <button class="button-add" style="margin-right: auto; width: 15%; margin-top: 10px" (click)="otvoriFormu = true">Dodaj jelo/piće</button>
   <div class="sve">
     <div class="naslovi" *ngFor="let kategorija of kategorije">
       <button class="button-delete" (click)="deleteKategorija(kategorija.id)">Obriši kategoriju</button>
@@ -44,9 +44,9 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="otvoriFormu = false">Close</button>
-        <button type="button" class="btn btn-primary"  (click)="SpasiKategoriju()">Spasi</button>
-        <button type="button" class="btn btn-primary siva-pozadina" (click)="novaForma=true">Sljedeća stranica</button>
+        <button type="button" class="buttonZatvori" (click)="otvoriFormu = false">Close</button>
+        <button type="button" class="buttonSpasi" (click)="SpasiKategoriju()">Spasi</button>
+        <button type="button" class="buttonSljedeca" (click)="novaForma=true">Sljedeća stranica</button>
       </div>
     </div>
   </div>
@@ -92,8 +92,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="novaForma = false">Close</button>
-          <button type="button" class="btn btn-primary" (click)="dodajMeni()">Spasi</button>
+          <button type="button" class="buttonZatvori" (click)="novaForma = false">Close</button>
+          <button type="button" class="buttonSpasi" (click)="dodajMeni()">Spasi</button>
         </div>
       </div>
     </div>

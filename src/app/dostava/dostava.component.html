@@ -112,10 +112,10 @@
       </div>
 
 
-      <div class="modal fade show" *ngIf="dostavaForma" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
+      <div class="kompletForma" *ngIf="dostavaForma" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block">
         <div class="modal-dialog" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-height: 80vh; overflow-y: auto;">
         <div class="modal-dialog">
-          <div class="modal-content" style="background-color: lightyellow;">
+          <div class="modal-content" style="background-color: lightyellow; padding-left: 20px;padding-right: 20px;padding-bottom: 10px">
             <div class="modal-header">
               <h5 class="modal-title">Dostava</h5>
               <button type="button" class="custom-close-button" aria-label="Close" (click)="dostavaForma = false">
@@ -211,8 +211,8 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id="closeButton" (click)="dostavaForma = false">Close</button>
-              <button type="button" class="btn btn-primary" id="spasiButton" (click)="PosaljiDostavu()" style="margin-left: 10px;">Spasi</button>
+              <button type="button" class="buttonZatvori"(click)="dostavaForma = false">Close</button>
+              <button type="button" class="buttonSpasi"  (click)="PosaljiDostavu()" style="margin-left: 10px;">Spasi</button>
             </div>
 
           </div>
@@ -225,19 +225,20 @@
 
       </div>
       <div *ngIf="loginInformation.isPremisijaAdmin">
-        <h3 id="naslov1">Dostava</h3>
+        <h3 id="naslov1">Dostave za korisnike</h3>
+        <div class="sadržaj">
         <button class="dohvati" (click)="DohvatiDostavu()" (click)="GetSveKorisnike()" (click)="DohvatiKartice()" >Dohvati dostave</button>
         <button class="prikazi" (click)="Prikazz()">Prikaz na stranici</button>
         <div *ngIf="mergedData" id="aggregated-data-container">
           <h4 id="naslov2">Dostave :</h4>
           <div *ngFor="let entry of mergedData" class="data-entry">
-            <div class="data-element header">Broj dostave: {{ entry.id }}</div>
-            <div class="data-element ">KORISNIK: {{ ImePrezimeKorisnika(entry.korisnik_id) }}</div>
-            <div class="data-element">Datum Kreiranja: {{ entry.datumKreiranja }}</div>
-            <div class="data-element cijena">Ukupna cijena: {{ entry.ukupnaCijena }}</div>
-            <div class="data-element telefon">Telefon: {{ entry.Telefon }}</div>
-            <div class="data-element adresa-dostave">Adresa Dostave: {{ entry.adresaDostave }}</div>
-            <div class="data-element kartica">Kartica: {{  entry.karticno_placanje }}</div>
+            <div class="data-element header" style="color:red">Broj dostave: {{ entry.id }}</div>
+            <div class="data-element ">KORISNIK: <strong>{{ ImePrezimeKorisnika(entry.korisnik_id) }}</strong></div>
+            <div class="data-element">Datum Kreiranja: <strong>{{ entry.datumKreiranja }}</strong></div>
+            <div class="data-element cijena">Ukupna cijena: <strong>{{ entry.ukupnaCijena }}</strong></div>
+            <div class="data-element telefon">Telefon: <strong>{{ entry.Telefon }}</strong></div>
+            <div class="data-element adresa-dostave">Adresa Dostave: <strong>{{ entry.adresaDostave }}</strong></div>
+            <div class="data-element kartica">Kartica: <strong>{{  entry.karticno_placanje }}</strong></div>
             <div class="data-element">Meni:</div>
             <ul>
               <li *ngFor="let menuDetail of Poziv(entry.meni_id, entry.kolicina)">
@@ -246,6 +247,7 @@
               </li>
             </ul>
           </div>
+        </div>
         </div>
         </div>
 

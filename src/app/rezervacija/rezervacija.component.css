@@ -37,16 +37,14 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: block;
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;
 }
 
 button:hover {
   background-color: #0056b3;
 }
-
-/* Adjust the widths of "Rezervacija" and "postojece-rezervacije" */
 .rezervacija {
-  flex: 7; /* Takes up 70% of the width */
+  flex: 7;
   height: 100%;
   text-align:center;
   margin-top:80px;
@@ -55,7 +53,7 @@ button:hover {
 }
 
 .postojece-rezervacije {
-  flex: 3; /* Takes up 30% of the width */
+  flex: 3;
   margin-left:50px;
   color:grey;
   right:0;
@@ -66,8 +64,8 @@ button:hover {
   border-radius:15px;
   position: sticky;
   top: 0;
-  align-self: flex-start; /* Align the content to the top of the container */
-  justify-content: flex-end; /* Align the content to the far right of the container */
+  align-self: flex-start;
+  justify-content: flex-end;
 }
 .status-text
 {
@@ -140,13 +138,13 @@ button:hover {
 }
 
 .approve-button {
-  background-color: #008000; /* Green color for approval */
+  background-color: #008000;
   color: white;
   margin-right:50px;
 }
 
 .approve-button:hover {
-  background-color: #006600; /* Darker green color on hover */
+  background-color: #006600;
 }
 
 .button-container {
@@ -163,4 +161,19 @@ button:hover {
 
 .reject-button:hover {
   background-color: #cc0000;
+}
+.buttonSpasi {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+.buttonSpasi:hover {
+  background-color: darkgreen;
 }

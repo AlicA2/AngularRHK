@@ -51,7 +51,6 @@ export class MeniComponent {
 
   sanitizeImage(imageData: string): SafeUrl {
     if (imageData) {
-      // Convert the base64 image data to a safe URL
       const imageUrl = 'data:image/png;base64,' + imageData;
       return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
     }
@@ -101,8 +100,8 @@ export class MeniComponent {
           };
           this.GetMeni();
           this.GetKategorije();
-          this.imagePreview = null; // Dodajte ovu liniju da resetirate imagePreview
-          this.novaForma = false; // Zatvaranje forme nakon uspješnog dodavanja
+          this.imagePreview = null;
+          this.novaForma = false;
         },
         (error) => {
           porukaError("Greška u dodavanju menija");
@@ -189,5 +188,3 @@ export class MeniComponent {
   }
 }
 
-
-//komentar
