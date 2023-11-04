@@ -81,7 +81,18 @@ this.httpKlijent.post(MojConfig.adresa_servera+"/Rezervacija/DodajRezervaciju",t
     porukaError("Greska");
   })
 }
-
+  getStatusTextColor(status: string): string {
+    switch (status) {
+      case 'Potvrđena':
+        return 'green';
+      case 'Odbijena':
+        return 'red';
+      case 'Na čekanju':
+        return 'blue';
+      default:
+        return 'black';
+    }
+  }
   updateRezervisano(id: number, newValue: string) {
     console.log(id + " " + newValue);
     const updateData = {

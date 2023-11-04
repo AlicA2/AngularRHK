@@ -60,7 +60,6 @@ export class KontaktComponent implements OnInit {
     };
   }
   kontaktPoruke:any;
-
   GetContactPoruke()
   {
     this.httpKlijent.get(MojConfig.adresa_servera+'/Kontakt/GetAll',MojConfig.http_opcije())
@@ -73,8 +72,8 @@ export class KontaktComponent implements OnInit {
       return;
     }
 
-    this.kontaktVM.korisnikID = this.userAuthService.getKorisnikID();
-
+    this.kontaktVM.korisnikID = this.loginInformation.autentifikacijaToken.korisnickiNalogId;
+    console.log(this.kontaktVM);
     this.httpKlijent.post(MojConfig.adresa_servera + "/Kontakt/DodajKontakt", this.kontaktVM).subscribe(
       (response: any) => {
         porukaSuccess(response.message);
