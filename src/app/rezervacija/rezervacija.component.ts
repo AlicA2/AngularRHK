@@ -38,7 +38,9 @@ export class RezervacijaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GetRezervacijeById();
     this.DohvatiRezervacije();
+
   }
   rezervacija: any = {
     Ime: '',
@@ -49,6 +51,7 @@ export class RezervacijaComponent implements OnInit {
     Rezervisano:'',
     korisnik_id:this.loginInformation.autentifikacijaToken.korisnickiNalogId
   };
+  korisnikPrikaz:any;
   sveRezervacije:any;
   DohvatiRezervacije()
   {
@@ -113,7 +116,14 @@ this.httpKlijent.post(MojConfig.adresa_servera+"/Rezervacija/DodajRezervaciju",t
         }
       );
   }
-
+GetRezervacijeById()
+{
+  this.httpKlijent.get(MojConfig.adresa_servera+"/Rezervacija/GetRezervacijaIdsByKorisnikId/GetByKorisnikId/"+this.loginInformation.autentifikacijaToken.korisnickiNalogId)
+    .subscribe(x=>{
+      this.korisnikPrikaz=x;
+      console.log(this.korisnikPrikaz);
+    })
+}
 
 
 }

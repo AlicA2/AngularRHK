@@ -39,7 +39,7 @@
   <div *ngIf="sveRezervacije && sveRezervacije.length > 0" class="postojece-rezervacije">
     <h2>Postojeće rezervacije</h2>
     <ul>
-      <li *ngFor="let rezervacija of sveRezervacije">
+      <li *ngFor="let rezervacija of korisnikPrikaz">
         <p>
           Vaša rezervacija je : <span class="status-text" [style.color]="getStatusTextColor(rezervacija.rezervisano)">{{rezervacija.rezervisano}}</span>
         </p>
